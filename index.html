@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amparo</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f7f6;
+            color: #222;
+        }
+
+        header {
+            background: #ffffff;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        header p {
+            font-size: 18px;
+        }
+
+        main {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 25px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            margin: 15px 0;
+            padding: 18px;
+            font-size: 19px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            background: #ffffff;
+            border: 2px solid #ddd;
+        }
+
+        button:hover {
+            transform: scale(1.02);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>AMPARO</h1>
+        <p>Seu dinheiro, sua independência.</p>
+    </header>
+
+    <main>
+        <h2>Como podemos ajudar?</h2>
+
+        <button onclick="mostrarMovimentacoes()">💰 Ver minhas movimentações</button>
+
+        <button onclick="fazerTransferencia()">💸 Fazer uma transferência</button>
+
+        <button onclick="falarComAssistente()">🗣️ Falar com o assistente</button>
+    </main>
+
+    <footer>
+        Desenvolvido pela equipe Ordem da Fênix 🔥
+    </footer>
+
+</body>
+</html> <script>
+    function mostrarMovimentacoes() {
+        alert("Minhas movimentações\n\nSaldo: R$ 1.250,00\n\n+ R$ 600,00 - INSS\n- R$ 80,00 - Mercado\n- R$ 150,00 - Farmácia");
+    }
+
+    function fazerTransferencia() {
+        alert("Área de transferência\n\nAqui o usuário poderá realizar uma transferência com segurança.");
+    }
+</script> <script>
+    function mostrarMovimentacoes() {
+        alert("Minhas movimentações\n\nSaldo: R$ 1.250,00\n\n+ R$ 600,00 - INSS\n- R$ 80,00 - Mercado\n- R$ 150,00 - Farmácia");
+    }
+
+    function fazerTransferencia() {
+        alert("Área de transferência\n\nAqui o usuário poderá realizar uma transferência com segurança.");
+    }
+
+    function falarComAssistente() {
+        alert("Olá! 👋\n\nComo posso ajudar você hoje?");
+    }
+</script>

@@ -1,637 +1,3321 @@
+```html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMPARO | Seu dinheiro, sua independência</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            min-height: 100vh;
-            color: white;
-            background:
-                radial-gradient(circle at 15% 20%, rgba(0, 220, 180, 0.18), transparent 30%),
-                radial-gradient(circle at 85% 70%, rgba(80, 100, 255, 0.20), transparent 30%),
-                linear-gradient(135deg, #07111f, #0b1d2d 55%, #07111f);
-            overflow-x: hidden;
-        }
-
-        /* Fundo animado */
-
-        .bolha {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(2px);
-            opacity: 0.18;
-            pointer-events: none;
-            animation: flutuar 8s ease-in-out infinite;
-        }
-
-        .bolha1 {
-            width: 220px;
-            height: 220px;
-            background: #00e6b8;
-            top: 10%;
-            left: -80px;
-        }
-
-        .bolha2 {
-            width: 300px;
-            height: 300px;
-            background: #536dfe;
-            right: -120px;
-            bottom: 5%;
-            animation-delay: 2s;
-        }
-
-        @keyframes flutuar {
-            0%, 100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-35px);
-            }
-        }
-
-        /* Cabeçalho */
-
-        header {
-            width: 100%;
-            padding: 22px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 10;
-            background: rgba(7, 17, 31, 0.55);
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #00e6b8, #5b7cfa);
-            font-size: 23px;
-            box-shadow: 0 8px 30px rgba(0, 230, 184, 0.25);
-        }
-
-        .logo h1 {
-            font-size: 25px;
-            letter-spacing: 2px;
-        }
-
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 13px;
-            color: #b7c4d4;
-        }
-
-        .status-dot {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: #00e6b8;
-            box-shadow: 0 0 12px #00e6b8;
-            animation: pulsar 2s infinite;
-        }
-
-        @keyframes pulsar {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.45;
-                transform: scale(1.4);
-            }
-        }
-
-        /* Conteúdo principal */
-
-        main {
-            width: min(1100px, 92%);
-            margin: 0 auto;
-            padding: 70px 0 40px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero {
-            text-align: center;
-            animation: aparecer 0.8s ease;
-        }
-
-        @keyframes aparecer {
-            from {
-                opacity: 0;
-                transform: translateY(25px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 50px;
-            background: rgba(0, 230, 184, 0.10);
-            border: 1px solid rgba(0, 230, 184, 0.25);
-            color: #63f5d6;
-            font-size: 13px;
-            margin-bottom: 20px;
-        }
-
-        .hero h2 {
-            font-size: clamp(40px, 7vw, 75px);
-            line-height: 1;
-            margin-bottom: 20px;
-            letter-spacing: -3px;
-        }
-
-        .hero h2 span {
-            background: linear-gradient(90deg, #62f5d6, #7b9cff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            max-width: 620px;
-            margin: auto;
-            color: #b7c4d4;
-            font-size: 18px;
-            line-height: 1.7;
-        }
-
-        /* Card do saldo */
-
-        .saldo {
-            width: min(700px, 100%);
-            margin: 45px auto;
-            padding: 30px;
-            border-radius: 28px;
-            background: linear-gradient(
-                135deg,
-                rgba(255,255,255,0.13),
-                rgba(255,255,255,0.05)
-            );
-            border: 1px solid rgba(255,255,255,0.12);
-            backdrop-filter: blur(20px);
-            box-shadow: 0 25px 70px rgba(0,0,0,0.30);
-            position: relative;
-            overflow: hidden;
-            animation: subir 1s ease;
-        }
-
-        .saldo::before {
-            content: "";
-            position: absolute;
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            background: rgba(0,230,184,0.12);
-            right: -70px;
-            top: -80px;
-        }
-
-        @keyframes subir {
-            from {
-                opacity: 0;
-                transform: translateY(35px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .saldo-topo {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: #aebccd;
-            font-size: 14px;
-            margin-bottom: 12px;
-        }
-
-        .saldo-valor {
-            font-size: clamp(36px, 6vw, 52px);
-            font-weight: bold;
-            letter-spacing: -2px;
-        }
-
-        .saldo-info {
-            margin-top: 15px;
-            color: #65efd2;
-            font-size: 14px;
-        }
-
-        /* Opções */
-
-        .titulo-secao {
-            text-align: center;
-            margin: 60px 0 25px;
-        }
-
-        .titulo-secao h3 {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-
-        .titulo-secao p {
-            color: #8fa1b5;
-        }
-
-        .opcoes {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .card {
-            position: relative;
-            padding: 28px;
-            min-height: 190px;
-            border-radius: 24px;
-            border: 1px solid rgba(255,255,255,0.10);
-            background: rgba(255,255,255,0.06);
-            backdrop-filter: blur(15px);
-            cursor: pointer;
-            text-align: left;
-            color: white;
-            transition:
-                transform 0.3s ease,
-                border-color 0.3s ease,
-                background 0.3s ease;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-9px);
-            border-color: rgba(0,230,184,0.45);
-            background: rgba(255,255,255,0.10);
-        }
-
-        .card-icon {
-            width: 55px;
-            height: 55px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 17px;
-            font-size: 25px;
-            margin-bottom: 22px;
-            background: rgba(255,255,255,0.09);
-        }
-
-        .card h4 {
-            font-size: 20px;
-            margin-bottom: 9px;
-        }
-
-        .card p {
-            color: #92a4b8;
-            line-height: 1.5;
-            font-size: 14px;
-        }
-
-        .seta {
-            position: absolute;
-            right: 22px;
-            bottom: 22px;
-            color: #65efd2;
-            font-size: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover .seta {
-            transform: translateX(5px);
-        }
-
-        /* Rodapé */
-
-        footer {
-            text-align: center;
-            padding: 55px 20px 30px;
-            color: #718297;
-            font-size: 13px;
-        }
-
-        /* Janelinha personalizada */
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.65);
-            backdrop-filter: blur(8px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            padding: 20px;
-        }
-
-        .modal.ativo {
-            display: flex;
-            animation: aparecer 0.25s ease;
-        }
-
-        .modal-box {
-            width: min(500px, 100%);
-            background: #101e2d;
-            border: 1px solid rgba(255,255,255,0.12);
-            border-radius: 25px;
-            padding: 30px;
-            box-shadow: 0 30px 100px rgba(0,0,0,0.5);
-        }
-
-        .modal-box h3 {
-            font-size: 25px;
-            margin-bottom: 20px;
-        }
-
-        .movimento {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .movimento-info strong {
-            display: block;
-            margin-bottom: 4px;
-        }
-
-        .movimento-info small {
-            color: #8495a9;
-        }
-
-        .entrada {
-            color: #5ce6c8;
-        }
-
-        .saida {
-            color: #ff8d9d;
-        }
-
-        .fechar {
-            width: 100%;
-            margin-top: 22px;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            background: #00cfa7;
-            color: #06151a;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        /* Responsividade */
-
-        @media (max-width: 800px) {
-            .opcoes {
-                grid-template-columns: 1fr;
-            }
-
-            header {
-                padding: 18px 5%;
-            }
-
-            main {
-                padding-top: 50px;
-            }
-
-            .status {
-                display: none;
-            }
-
-            .saldo {
-                padding: 25px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AMPARO | Tecnologia para cuidar</title>
+
+<style>
+
+/* =========================
+   BASE
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --bg:#06131f;
+    --bg2:#0a1d2b;
+    --card:rgba(255,255,255,.065);
+    --card2:rgba(255,255,255,.09);
+    --border:rgba(255,255,255,.10);
+    --green:#00d6a3;
+    --green2:#00a982;
+    --blue:#5c7cff;
+    --text:#ffffff;
+    --muted:#91a5b8;
+    --danger:#ff7084;
+    --warning:#ffd166;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at 5% 5%,rgba(0,214,163,.15),transparent 28%),
+        radial-gradient(circle at 95% 90%,rgba(92,124,255,.16),transparent 30%),
+        linear-gradient(135deg,var(--bg),var(--bg2));
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+.hidden{
+    display:none!important;
+}
+
+
+/* =========================
+   FUNDO
+========================= */
+
+.orb{
+    position:fixed;
+    border-radius:50%;
+    filter:blur(80px);
+    pointer-events:none;
+    opacity:.20;
+    z-index:-1;
+    animation:float 8s ease-in-out infinite;
+}
+
+.orb.one{
+    width:260px;
+    height:260px;
+    background:var(--green);
+    top:-100px;
+    left:-100px;
+}
+
+.orb.two{
+    width:320px;
+    height:320px;
+    background:var(--blue);
+    right:-150px;
+    bottom:-120px;
+    animation-delay:2s;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-30px)}
+}
+
+
+/* =========================
+   TELA
+========================= */
+
+.screen{
+    display:none;
+    min-height:100vh;
+    animation:show .35s ease;
+}
+
+.screen.active{
+    display:block;
+}
+
+@keyframes show{
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+
+/* =========================
+   BOTÕES
+========================= */
+
+.btn{
+    border:none;
+    border-radius:15px;
+    padding:15px 20px;
+    font-size:16px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.primary{
+    background:linear-gradient(135deg,var(--green),var(--green2));
+    color:#031813;
+    box-shadow:0 12px 30px rgba(0,214,163,.15);
+}
+
+.secondary{
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--border);
+    color:white;
+}
+
+.full{
+    width:100%;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-symbol{
+    width:52px;
+    height:52px;
+    border-radius:17px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,var(--green),var(--blue));
+    font-size:26px;
+    box-shadow:0 15px 40px rgba(0,214,163,.2);
+}
+
+.logo strong{
+    font-size:24px;
+    letter-spacing:3px;
+}
+
+
+/* =========================
+   LANDING
+========================= */
+
+.landing{
+    width:92%;
+    max-width:1000px;
+    min-height:100vh;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.landing .logo{
+    justify-content:center;
+    margin-bottom:30px;
+}
+
+.landing h1{
+    font-size:clamp(43px,8vw,80px);
+    line-height:1;
+    letter-spacing:-4px;
+    margin-bottom:25px;
+}
+
+.gradient{
+    background:linear-gradient(90deg,#62f5d6,#7895ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.landing p{
+    max-width:720px;
+    margin:auto;
+    color:var(--muted);
+    font-size:18px;
+    line-height:1.7;
+}
+
+.actions{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+}
+
+.pills{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:30px;
+}
+
+.pill{
+    padding:9px 14px;
+    border-radius:50px;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--border);
+    color:#b9c7d4;
+    font-size:13px;
+}
+
+
+/* =========================
+   FORMULÁRIOS
+========================= */
+
+.center{
+    width:92%;
+    max-width:560px;
+    min-height:100vh;
+    margin:auto;
+    display:flex;
+    align-items:center;
+}
+
+.form-card{
+    width:100%;
+    padding:34px;
+    border-radius:28px;
+    background:rgba(10,29,43,.88);
+    border:1px solid var(--border);
+    box-shadow:0 30px 90px rgba(0,0,0,.35);
+    backdrop-filter:blur(20px);
+}
+
+.back{
+    background:none;
+    border:none;
+    color:var(--muted);
+    margin-bottom:25px;
+    font-size:14px;
+}
+
+.form-card h2{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.subtitle{
+    color:var(--muted);
+    line-height:1.6;
+    margin-bottom:25px;
+}
+
+.group{
+    margin-bottom:17px;
+}
+
+.group label{
+    display:block;
+    font-size:14px;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.input{
+    width:100%;
+    padding:15px;
+    border-radius:13px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.055);
+    color:white;
+    outline:none;
+    font-size:16px;
+}
+
+.input:focus{
+    border-color:var(--green);
+    box-shadow:0 0 0 3px rgba(0,214,163,.08);
+}
+
+.form-link{
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+    margin-top:18px;
+}
+
+.link{
+    color:var(--green);
+    font-weight:bold;
+    cursor:pointer;
+}
+
+
+/* =========================
+   IDADE
+========================= */
+
+.age-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+.age{
+    padding:25px 15px;
+    border-radius:20px;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--border);
+    color:white;
+    transition:.2s;
+}
+
+.age:hover{
+    transform:translateY(-4px);
+    border-color:rgba(0,214,163,.5);
+}
+
+.age-icon{
+    display:block;
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.age strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.age small{
+    color:var(--muted);
+}
+
+
+/* =========================
+   APP
+========================= */
+
+.app{
+    width:92%;
+    max-width:1200px;
+    margin:auto;
+    padding:25px 0 120px;
+}
+
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand-icon{
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,var(--green),var(--blue));
+}
+
+.brand-name{
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.profile-button{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--border);
+    color:white;
+    font-size:19px;
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+.greeting small{
+    color:var(--muted);
+}
+
+.greeting h2{
+    font-size:32px;
+    margin:6px 0 25px;
+}
+
+.balance{
+    padding:30px;
+    border-radius:28px;
+    background:
+        linear-gradient(135deg,rgba(0,214,163,.16),rgba(92,124,255,.15)),
+        rgba(255,255,255,.04);
+    border:1px solid var(--border);
+    margin-bottom:30px;
+}
+
+.balance-top{
+    display:flex;
+    justify-content:space-between;
+    color:#bcc9d5;
+    font-size:14px;
+}
+
+.balance-value{
+    font-size:clamp(42px,7vw,60px);
+    font-weight:bold;
+    margin:18px 0 7px;
+}
+
+.balance-status{
+    color:#63efd2;
+}
+
+
+/* =========================
+   ATALHOS
+========================= */
+
+.section-title{
+    margin-bottom:17px;
+}
+
+.section-title h3{
+    font-size:23px;
+}
+
+.section-title p{
+    color:var(--muted);
+    margin-top:5px;
+}
+
+.shortcuts{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:35px;
+}
+
+.shortcut{
+    text-align:left;
+    padding:20px;
+    border-radius:20px;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--border);
+    color:white;
+    transition:.2s;
+}
+
+.shortcut:hover{
+    transform:translateY(-5px);
+    border-color:rgba(0,214,163,.4);
+}
+
+.short-icon{
+    font-size:28px;
+    margin-bottom:12px;
+}
+
+.shortcut strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.shortcut small{
+    color:var(--muted);
+}
+
+
+/* =========================
+   DESTAQUES
+========================= */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:16px;
+}
+
+.info-card{
+    padding:24px;
+    border-radius:22px;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--border);
+}
+
+.info-icon{
+    font-size:29px;
+    margin-bottom:14px;
+}
+
+.info-card h4{
+    margin-bottom:8px;
+}
+
+.info-card p{
+    color:var(--muted);
+    line-height:1.5;
+    font-size:14px;
+}
+
+
+/* =========================
+   NAV
+========================= */
+
+.nav{
+    position:fixed;
+    left:50%;
+    bottom:14px;
+    transform:translateX(-50%);
+    width:min(780px,96%);
+    padding:9px;
+    border-radius:22px;
+    background:rgba(5,17,28,.93);
+    border:1px solid var(--border);
+    backdrop-filter:blur(20px);
+    display:flex;
+    justify-content:space-around;
+    z-index:50;
+}
+
+.nav button{
+    border:none;
+    background:none;
+    color:#8194a8;
+    font-size:12px;
+    padding:6px 12px;
+}
+
+.nav button span{
+    display:block;
+    font-size:20px;
+    margin-bottom:4px;
+}
+
+.nav button:hover{
+    color:var(--green);
+}
+
+
+/* =========================
+   PÁGINAS INTERNAS
+========================= */
+
+.page{
+    width:92%;
+    max-width:850px;
+    margin:auto;
+    padding:35px 0 120px;
+}
+
+.page-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:28px;
+}
+
+.page-header button{
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.06);
+    color:white;
+    font-size:18px;
+}
+
+.page-header h2{
+    font-size:29px;
+}
+
+
+/* =========================
+   LISTA
+========================= */
+
+.list{
+    border-radius:22px;
+    overflow:hidden;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+}
+
+.item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:19px;
+    border-bottom:1px solid rgba(255,255,255,.07);
+}
+
+.item:last-child{
+    border-bottom:none;
+}
+
+.item-left{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.item-icon{
+    width:44px;
+    height:44px;
+    border-radius:13px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(255,255,255,.07);
+}
+
+.item small{
+    display:block;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.in{
+    color:#5ce6c8;
+}
+
+.out{
+    color:#ff8295;
+}
+
+
+/* =========================
+   PIX
+========================= */
+
+.box{
+    padding:27px;
+    border-radius:24px;
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--border);
+}
+
+.warning{
+    padding:15px;
+    border-radius:14px;
+    background:rgba(255,209,102,.08);
+    border:1px solid rgba(255,209,102,.18);
+    color:#ffd979;
+    line-height:1.5;
+    margin-bottom:20px;
+}
+
+
+/* =========================
+   CARTÃO
+========================= */
+
+.bank-card{
+    width:100%;
+    max-width:480px;
+    aspect-ratio:1.6/1;
+    margin:0 auto 28px;
+    padding:25px;
+    border-radius:23px;
+    background:linear-gradient(135deg,#142b3d,#124c58,#08745e);
+    box-shadow:0 25px 55px rgba(0,0,0,.35);
+    position:relative;
+    overflow:hidden;
+}
+
+.bank-card::after{
+    content:"";
+    position:absolute;
+    width:200px;
+    height:200px;
+    border-radius:50%;
+    right:-80px;
+    bottom:-90px;
+    background:rgba(255,255,255,.07);
+}
+
+.card-top{
+    display:flex;
+    justify-content:space-between;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.chip{
+    width:48px;
+    height:35px;
+    border-radius:7px;
+    background:#d7c276;
+    margin-top:48px;
+}
+
+.card-number{
+    margin-top:20px;
+    font-size:20px;
+    letter-spacing:3px;
+}
+
+.card-name{
+    position:absolute;
+    bottom:22px;
+    left:25px;
+    font-size:12px;
+    color:#d1dde4;
+}
+
+
+/* =========================
+   CONFIGURAÇÕES
+========================= */
+
+.settings{
+    border-radius:22px;
+    overflow:hidden;
+    background:rgba(255,255,255,.04);
+    border:1px solid var(--border);
+}
+
+.setting{
+    width:100%;
+    padding:19px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border:none;
+    border-bottom:1px solid rgba(255,255,255,.07);
+    background:none;
+    color:white;
+    text-align:left;
+}
+
+.setting:last-child{
+    border-bottom:none;
+}
+
+.setting-left{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.setting-icon{
+    width:44px;
+    height:44px;
+    border-radius:13px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(255,255,255,.07);
+    font-size:19px;
+}
+
+.setting small{
+    display:block;
+    color:var(--muted);
+    margin-top:4px;
+}
+
+.arrow{
+    color:#8294a7;
+    font-size:20px;
+}
+
+
+/* =========================
+   SWITCH
+========================= */
+
+.switch{
+    width:48px;
+    height:27px;
+    border:none;
+    border-radius:30px;
+    padding:3px;
+    background:#354655;
+}
+
+.switch::after{
+    content:"";
+    display:block;
+    width:21px;
+    height:21px;
+    border-radius:50%;
+    background:white;
+    transition:.2s;
+}
+
+.switch.on{
+    background:var(--green);
+}
+
+.switch.on::after{
+    transform:translateX(21px);
+}
+
+
+/* =========================
+   ASSISTENTE
+========================= */
+
+.chat{
+    height:calc(100vh - 190px);
+    display:flex;
+    flex-direction:column;
+}
+
+.messages{
+    flex:1;
+    overflow-y:auto;
+    padding-bottom:15px;
+}
+
+.message{
+    max-width:82%;
+    padding:14px 16px;
+    border-radius:18px;
+    margin-bottom:12px;
+    line-height:1.5;
+}
+
+.bot{
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--border);
+}
+
+.user{
+    margin-left:auto;
+    background:linear-gradient(135deg,var(--green2),#3672db);
+}
+
+.chatbar{
+    display:flex;
+    gap:10px;
+}
+
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translate(-50%,-100px);
+    padding:15px 20px;
+    border-radius:14px;
+    background:#102638;
+    border:1px solid var(--border);
+    box-shadow:0 15px 40px rgba(0,0,0,.35);
+    z-index:100;
+    transition:.3s;
+}
+
+.toast.show{
+    transform:translate(-50%,0);
+}
+
+
+/* =========================
+   ACESSIBILIDADE
+========================= */
+
+.accessibility{
+    position:fixed;
+    right:18px;
+    bottom:100px;
+    z-index:60;
+}
+
+.accessibility button{
+    width:52px;
+    height:52px;
+    border:none;
+    border-radius:50%;
+    background:var(--green);
+    color:#052019;
+    font-weight:bold;
+    font-size:17px;
+    box-shadow:0 10px 30px rgba(0,214,163,.25);
+}
+
+body.large{
+    font-size:19px;
+}
+
+body.large .nav button{
+    font-size:15px;
+}
+
+body.large .nav button span{
+    font-size:23px;
+}
+
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media(max-width:850px){
+
+    .shortcuts{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .form-card{
+        padding:25px;
+    }
+
+    .age-grid{
+        grid-template-columns:1fr;
+    }
+
+    .shortcuts{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .nav{
+        width:98%;
+    }
+
+    .nav button{
+        padding:6px;
+    }
+
+    .nav button span{
+        font-size:18px;
+    }
+
+    .balance-value{
+        font-size:43px;
+    }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-    <div class="bolha bolha1"></div>
-    <div class="bolha bolha2"></div>
+<div class="orb one"></div>
+<div class="orb two"></div>
 
-    <header>
-        <div class="logo">
-            <div class="logo-icon">🛡️</div>
-            <h1>AMPARO</h1>
-        </div>
-
-        <div class="status">
-            <div class="status-dot"></div>
-            Sistema protegido
-        </div>
-    </header>
-
-    <main>
-
-        <section class="hero">
-
-            <div class="tag">
-                ✦ Tecnologia para uma vida financeira mais segura
-            </div>
-
-            <h2>
-                Seu dinheiro.<br>
-                <span>Sua independência.</span>
-            </h2>
-
-            <p>
-                Uma experiência simples, segura e acessível para
-                ajudar você a cuidar da sua vida financeira.
-            </p>
-
-        </section>
-
-        <section class="saldo">
-
-            <div class="saldo-topo">
-                <span>Saldo disponível</span>
-                <span>● Conta principal</span>
-            </div>
-
-            <div class="saldo-valor">
-                R$ 1.250,00
-            </div>
-
-            <div class="saldo-info">
-                ↑ Tudo sob controle
-            </div>
-
-        </section>
-
-        <section>
-
-            <div class="titulo-secao">
-                <h3>Como podemos ajudar?</h3>
-                <p>Escolha uma opção para continuar</p>
-            </div>
-
-            <div class="opcoes">
-
-                <button class="card" onclick="mostrarMovimentacoes()">
-                    <div class="card-icon">💰</div>
-
-                    <h4>Movimentações</h4>
-
-                    <p>
-                        Acompanhe seu saldo, entradas e
-                        despesas de forma simples.
-                    </p>
-
-                    <span class="seta">→</span>
-                </button>
-
-                <button class="card" onclick="fazerTransferencia()">
-                    <div class="card-icon">💸</div>
-
-                    <h4>Transferências</h4>
-
-                    <p>
-                        Faça transferências com segurança
-                        e confirme cada operação.
-                    </p>
-
-                    <span class="seta">→</span>
-                </button>
-
-                <button class="card" onclick="falarComAssistente()">
-                    <div class="card-icon">🗣️</div>
-
-                    <h4>Assistente AMPARO</h4>
-
-                    <p>
-                        Tire dúvidas e receba ajuda para
-                        cuidar melhor do seu dinheiro.
-                    </p>
-
-                    <span class="seta">→</span>
-                </button>
-
-            </div>
-
-        </section>
-
-    </main>
-
-    <footer>
-        AMPARO © 2026 · Desenvolvido pela equipe Ordem da Fênix 🔥
-    </footer>
+<div id="toast" class="toast"></div>
 
 
-    <!-- JANELA DE MOVIMENTAÇÕES -->
+<!-- =================================
+     TELA 1 — APRESENTAÇÃO
+================================= -->
 
-    <div class="modal" id="modalMovimentacoes">
+<section id="welcome" class="screen active">
 
-        <div class="modal-box">
+<div class="landing">
 
-            <h3>💰 Minhas movimentações</h3>
+<div>
 
-            <div class="movimento">
-                <div class="movimento-info">
-                    <strong>INSS</strong>
-                    <small>Recebimento</small>
-                </div>
+<div class="logo">
+<div class="logo-symbol">🛡️</div>
+<strong>AMPARO</strong>
+</div>
 
-                <strong class="entrada">+ R$ 600,00</strong>
-            </div>
+<h1>
+Seu dinheiro.<br>
+<span class="gradient">Sua independência.</span>
+</h1>
 
-            <div class="movimento">
-                <div class="movimento-info">
-                    <strong>Mercado</strong>
-                    <small>Pagamento</small>
-                </div>
+<p>
+Uma experiência financeira simples, segura e acessível,
+pensada especialmente para pessoas que querem entender
+melhor seu dinheiro — incluindo idosos, jovens e iniciantes.
+</p>
 
-                <strong class="saida">- R$ 80,00</strong>
-            </div>
+<div class="actions">
 
-            <div class="movimento">
-                <div class="movimento-info">
-                    <strong>Farmácia</strong>
-                    <small>Pagamento</small>
-                </div>
+<button class="btn primary" onclick="openScreen('age')">
+Começar agora →
+</button>
 
-                <strong class="saida">- R$ 150,00</strong>
-            </div>
+<button class="btn secondary" onclick="openScreen('login')">
+Já tenho uma conta
+</button>
 
-            <button class="fechar" onclick="fecharModal('modalMovimentacoes')">
-                Fechar
-            </button>
+</div>
 
-        </div>
+<div class="pills">
 
-    </div>
+<span class="pill">🛡️ Segurança</span>
+<span class="pill">👴 Acessibilidade</span>
+<span class="pill">🤖 Assistente</span>
+<span class="pill">💳 Conta digital</span>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
 
 
-    <script>
+<!-- =================================
+     TELA 2 — IDADE
+================================= -->
 
-        function mostrarMovimentacoes() {
+<section id="age" class="screen">
+
+<div class="center">
+
+<div class="form-card">
+
+<button class="back" onclick="openScreen('welcome')">
+← Voltar
+</button>
+
+<h2>Antes de começar 👋</h2>
+
+<p class="subtitle">
+Qual faixa etária representa melhor você?
+Isso permite adaptar a experiência do AMPARO.
+</p>
+
+<div class="age-grid">
+
+<button class="age" onclick="selectAge('Jovem')">
+<span class="age-icon">🧑‍💻</span>
+<strong>Jovem</strong>
+<small>Até 24 anos</small>
+</button>
+
+<button class="age" onclick="selectAge('Adulto')">
+<span class="age-icon">👨‍💼</span>
+<strong>Adulto</strong>
+<small>25 a 59 anos</small>
+</button>
+
+<button class="age" onclick="selectAge('60+')">
+<span class="age-icon">👴</span>
+<strong>60+</strong>
+<small>Experiência e tranquilidade</small>
+</button>
+
+<button class="age" onclick="selectAge('Prefiro não informar')">
+<span class="age-icon">🔒</span>
+<strong>Não informar</strong>
+<small>Continuar normalmente</small>
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     TELA 3 — CADASTRO
+================================= -->
+
+<section id="register" class="screen">
+
+<div class="center">
+
+<div class="form-card">
+
+<button class="back" onclick="openScreen('age')">
+← Voltar
+</button>
+
+<h2>Criar sua conta ✨</h2>
+
+<p class="subtitle">
+Preencha seus dados para criar uma conta de demonstração.
+</p>
+
+<div class="group">
+<label>Nome completo</label>
+<input id="registerName" class="input" placeholder="Ex.: João Silva">
+</div>
+
+<div class="group">
+<label>E-mail</label>
+<input id="registerEmail" type="email" class="input" placeholder="seu@email.com">
+</div>
+
+<div class="group">
+<label>Telefone</label>
+<input id="registerPhone" class="input" placeholder="(88) 99999-9999">
+</div>
+
+<div class="group">
+<label>Senha</label>
+<input id="registerPassword" type="password" class="input" placeholder="Crie uma senha">
+</div>
+
+<div class="group">
+<label>Confirmar senha</label>
+<input id="registerPassword2" type="password" class="input" placeholder="Repita sua senha">
+</div>
+
+<button class="btn primary full" onclick="createAccount()">
+Criar conta
+</button>
+
+<div class="form-link">
+Já possui conta?
+<span class="link" onclick="openScreen('login')">
+Entrar
+</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     TELA 4 — LOGIN
+================================= -->
+
+<section id="login" class="screen">
+
+<div class="center">
+
+<div class="form-card">
+
+<button class="back" onclick="openScreen('welcome')">
+← Voltar
+</button>
+
+<h2>Bem-vindo de volta 👋</h2>
+
+<p class="subtitle">
+Entre na sua conta AMPARO.
+</p>
+
+<div class="group">
+<label>E-mail</label>
+<input id="loginEmail" type="email" class="input" placeholder="seu@email.com">
+</div>
+
+<div class="group">
+<label>Senha</label>
+<input id="loginPassword" type="password" class="input" placeholder="Sua senha">
+</div>
+
+<button class="btn primary full" onclick="enterAccount()">
+Entrar
+</button>
+
+<div class="form-link">
+Ainda não possui conta?
+<span class="link" onclick="openScreen('age')">
+Criar conta
+</span>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     APP PRINCIPAL
+================================= -->
+
+<section id="home" class="screen">
+
+<div class="app">
+
+<div class="topbar">
+
+<div class="brand">
+
+<div class="brand-icon">🛡️</div>
+
+<span class="brand-name">
+AMPARO
+</span>
+
+</div>
+
+<button class="profile-button" onclick="openScreen('profile')">
+👤
+</button>
+
+</div>
+
+
+<div class="greeting">
+
+<small>Bem-vindo ao AMPARO 👋</small>
+
+<h2>
+Olá, <span id="userNameHome">Usuário</span>
+</h2>
+
+</div>
+
+
+<div class="balance">
+
+<div class="balance-top">
+
+<span>Saldo disponível</span>
+
+<span>● Conta principal</span>
+
+</div>
+
+<div class="balance-value">
+R$ 1.250,00
+</div>
+
+<div class="balance-status">
+↑ Tudo sob controle
+</div>
+
+</div>
+
+
+<div class="section-title">
+
+<h3>Acesso rápido</h3>
+
+<p>O que você deseja fazer?</p>
+
+</div>
+
+
+<div class="shortcuts">
+
+<button class="shortcut" onclick="openScreen('transactions')">
+
+<div class="short-icon">💰</div>
+
+<strong>Movimentações</strong>
+
+<small>Entradas e despesas</small>
+
+</button>
+
+
+<button class="shortcut" onclick="openScreen('transfer')">
+
+<div class="short-icon">💸</div>
+
+<strong>Transferir</strong>
+
+<small>Pix e transferências</small>
+
+</button>
+
+
+<button class="shortcut" onclick="openScreen('assistant')">
+
+<div class="short-icon">🤖</div>
+
+<strong>Assistente</strong>
+
+<small>Precisa de ajuda?</small>
+
+</button>
+
+
+<button class="shortcut" onclick="openScreen('security')">
+
+<div class="short-icon">🔒</div>
+
+<strong>Segurança</strong>
+
+<small>Conta protegida</small>
+
+</button>
+
+</div>
+
+
+<div class="section-title">
+
+<h3>Recursos AMPARO</h3>
+
+<p>Feito para tornar a vida financeira mais simples.</p>
+
+</div>
+
+
+<div class="cards">
+
+<div class="info-card">
+
+<div class="info-icon">👴</div>
+
+<h4>Acessível</h4>
+
+<p>
+Interface simples, textos maiores e linguagem
+fácil de entender.
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<div class="info-icon">💳</div>
+
+<h4>Cartão AMPARO</h4>
+
+<p>
+Acompanhe seu cartão e tenha mais controle
+sobre seus gastos.
+</p>
+
+</div>
+
+
+<div class="info-card">
+
+<div class="info-icon">🏦</div>
+
+<h4>Conta digital</h4>
+
+<p>
+Estrutura preparada para futura integração
+com instituição financeira parceira.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<nav class="nav">
+
+<button onclick="openScreen('home')">
+<span>⌂</span>
+Início
+</button>
+
+<button onclick="openScreen('transactions')">
+<span>💰</span>
+Movimentos
+</button>
+
+<button onclick="openScreen('transfer')">
+<span>💸</span>
+Transferir
+</button>
+
+<button onclick="openScreen('assistant')">
+<span>🤖</span>
+Assistente
+</button>
+
+<button onclick="openScreen('security')">
+<span>🔒</span>
+Segurança
+</button>
+
+</nav>
+
+
+<div class="accessibility">
+<button onclick="toggleAccessibility()">Aa</button>
+</div>
+
+</section>
+
+
+<!-- =================================
+     MOVIMENTAÇÕES
+================================= -->
+
+<section id="transactions" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('home')">
+←
+</button>
+
+<h2>Movimentações</h2>
+
+</div>
+
+
+<div class="balance">
+
+<div class="balance-top">
+<span>Saldo disponível</span>
+</div>
+
+<div class="balance-value">
+R$ 1.250,00
+</div>
+
+</div>
+
+
+<div class="list">
+
+<div class="item">
+
+<div class="item-left">
+
+<div class="item-icon">
+🏦
+</div>
+
+<div>
+<strong>INSS</strong>
+<small>Recebimento</small>
+</div>
+
+</div>
+
+<strong class="in">
++ R$ 600,00
+</strong>
+
+</div>
+
+
+<div class="item">
+
+<div class="item-left">
+
+<div class="item-icon">
+🛒
+</div>
+
+<div>
+<strong>Mercado</strong>
+<small>Pagamento</small>
+</div>
+
+</div>
+
+<strong class="out">
+- R$ 80,00
+</strong>
+
+</div>
+
+
+<div class="item">
+
+<div class="item-left">
+
+<div class="item-icon">
+💊
+</div>
+
+<div>
+<strong>Farmácia</strong>
+<small>Pagamento</small>
+</div>
+
+</div>
+
+<strong class="out">
+- R$ 150,00
+</strong>
+
+</div>
+
+
+<div class="item">
+
+<div class="item-left">
+
+<div class="item-icon">
+💡
+</div>
+
+<div>
+<strong>Energia</strong>
+<small>Pagamento</small>
+</div>
+
+</div>
+
+<strong class="out">
+- R$ 70,00
+</strong>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     TRANSFERÊNCIA
+================================= -->
+
+<section id="transfer" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('home')">
+←
+</button>
+
+<h2>Transferir</h2>
+
+</div>
+
+
+<div class="box">
+
+<div class="warning">
+
+⚠️ <strong>Modo demonstração</strong><br>
+
+Esta função faz parte do protótipo.
+Nenhum dinheiro real será enviado.
+
+</div>
+
+
+<div class="group">
+
+<label>Nome do destinatário</label>
+
+<input
+id="recipient"
+class="input"
+placeholder="Ex.: Maria Silva">
+
+</div>
+
+
+<div class="group">
+
+<label>Chave Pix</label>
+
+<input
+id="pixKey"
+class="input"
+placeholder="CPF, telefone ou e-mail">
+
+</div>
+
+
+<div class="group">
+
+<label>Valor</label>
+
+<input
+id="pixAmount"
+type="number"
+class="input"
+placeholder="0,00">
+
+</div>
+
+
+<button class="btn primary full" onclick="reviewTransfer()">
+
+💸 Revisar transferência
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     CARTÃO
+================================= -->
+
+<section id="card" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('home')">
+←
+</button>
+
+<h2>Cartão AMPARO</h2>
+
+</div>
+
+
+<div class="bank-card">
+
+<div class="card-top">
+
+<span>AMPARO</span>
+
+<span>VISA</span>
+
+</div>
+
+<div class="chip"></div>
+
+<div class="card-number">
+•••• •••• •••• 2046
+</div>
+
+<div class="card-name">
+TITULAR DA CONTA
+</div>
+
+</div>
+
+
+<div class="box">
+
+<h3>Seu cartão</h3>
+
+<br>
+
+<p style="color:var(--muted);line-height:1.7">
+
+Este é um cartão demonstrativo do projeto AMPARO.
+A proposta é oferecer uma experiência simples para
+acompanhar gastos e utilizar serviços financeiros.
+
+</p>
+
+<br>
+
+<button
+class="btn primary full"
+onclick="toast('💳 Solicitação registrada no protótipo!')">
+
+Solicitar cartão
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     ASSISTENTE
+================================= -->
+
+<section id="assistant" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('home')">
+←
+</button>
+
+<h2>Assistente AMPARO 🤖</h2>
+
+</div>
+
+
+<div class="chat">
+
+<div class="messages" id="messages">
+
+<div class="message bot">
+
+Olá! 👋<br><br>
+
+Eu sou o Assistente AMPARO.
+Posso explicar Pix, cartão, saldo,
+segurança e outros assuntos financeiros
+de maneira simples.
+
+</div>
+
+</div>
+
+
+<div class="chatbar">
+
+<input
+id="chatInput"
+class="input"
+placeholder="Digite sua dúvida..."
+onkeydown="if(event.key==='Enter') sendMessage()">
+
+<button class="btn primary" onclick="sendMessage()">
+Enviar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     PERFIL
+================================= -->
+
+<section id="profile" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('home')">
+←
+</button>
+
+<h2>Meu perfil</h2>
+
+</div>
+
+
+<div class="settings">
+
+<button class="setting" onclick="editName()">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+👤
+</div>
+
+<div>
+
+<strong id="profileName">
+Usuário
+</strong>
+
+<small>
+Nome completo
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">→</span>
+
+</button>
+
+
+<button class="setting" onclick="editEmail()">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+📧
+</div>
+
+<div>
+
+<strong id="profileEmail">
+Não informado
+</strong>
+
+<small>
+E-mail
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">→</span>
+
+</button>
+
+
+<button class="setting" onclick="editPhone()">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+📱
+</div>
+
+<div>
+
+<strong id="profilePhone">
+Não informado
+</strong>
+
+<small>
+Telefone
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">→</span>
+
+</button>
+
+
+<button class="setting" onclick="openScreen('card')">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+💳
+</div>
+
+<div>
+
+<strong>
+Cartão AMPARO
+</strong>
+
+<small>
+Visualizar cartão
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">→</span>
+
+</button>
+
+
+<button class="setting" onclick="openScreen('account')">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+🏦
+</div>
+
+<div>
+
+<strong>
+Conta digital
+</strong>
+
+<small>
+Dados da conta
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">→</span>
+
+</button>
+
+</div>
+
+
+<br>
+
+<button
+class="btn secondary full"
+onclick="openScreen('security')">
+
+🔒 Configurações de segurança
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     SEGURANÇA
+================================= -->
+
+<section id="security" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('home')">
+←
+</button>
+
+<h2>Segurança</h2>
+
+</div>
+
+
+<div class="settings">
+
+
+<button class="setting" onclick="openScreen('protected')">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+🛡️
+</div>
+
+<div>
+
+<strong>
+Conta protegida
+</strong>
+
+<small>
+Proteções da sua conta
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">→</span>
+
+</button>
+
+
+<button class="setting" onclick="openScreen('alerts')">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+🔔
+</div>
+
+<div>
+
+<strong>
+Alertas
+</strong>
+
+<small>
+Notificações de segurança
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">→</span>
+
+</button>
+
+
+<button class="setting" onclick="openScreen('confirmation')">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+✅
+</div>
+
+<div>
+
+<strong>
+Confirmação de operações
+</strong>
+
+<small>
+Confirmar ações importantes
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">→</span>
+
+</button>
+
+
+<button class="setting" onclick="openScreen('privacy')">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+🔐
+</div>
+
+<div>
+
+<strong>
+Privacidade
+</strong>
+
+<small>
+Controle de informações
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">→</span>
+
+</button>
+
+
+<button class="setting" onclick="toggleAccessibility()">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+🔎
+</div>
+
+<div>
+
+<strong>
+Acessibilidade
+</strong>
+
+<small>
+Aumentar tamanho dos textos
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">
+Aa
+</span>
+
+</button>
+
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     CONTA PROTEGIDA
+================================= -->
+
+<section id="protected" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('security')">
+←
+</button>
+
+<h2>Conta protegida</h2>
+
+</div>
+
+
+<div class="box">
+
+<h3>
+🛡️ Sua conta está protegida
+</h3>
+
+<br>
+
+<p style="color:var(--muted);line-height:1.7">
+
+O AMPARO foi pensado para tornar ações financeiras
+mais fáceis de entender e ajudar o usuário a perceber
+operações suspeitas antes de confirmá-las.
+
+</p>
+
+<br>
+
+
+<div class="list">
+
+<div class="item">
+<span>🔑 Proteção de acesso</span>
+<strong class="in">✓</strong>
+</div>
+
+<div class="item">
+<span>🔔 Alertas de segurança</span>
+<strong class="in">✓</strong>
+</div>
+
+<div class="item">
+<span>✅ Confirmação de operações</span>
+<strong class="in">✓</strong>
+</div>
+
+<div class="item">
+<span>🔐 Privacidade</span>
+<strong class="in">✓</strong>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     ALERTAS
+================================= -->
+
+<section id="alerts" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('security')">
+←
+</button>
+
+<h2>Alertas</h2>
+
+</div>
+
+
+<div class="settings">
+
+
+<div class="setting">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+💸
+</div>
+
+<div>
+
+<strong>
+Transferências
+</strong>
+
+<small>
+Alertar movimentações
+</small>
+
+</div>
+
+</div>
+
+<button
+class="switch on"
+onclick="toggleSwitch(this)">
+</button>
+
+</div>
+
+
+<div class="setting">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+🔐
+</div>
+
+<div>
+
+<strong>
+Acesso à conta
+</strong>
+
+<small>
+Alertar novos acessos
+</small>
+
+</div>
+
+</div>
+
+<button
+class="switch on"
+onclick="toggleSwitch(this)">
+</button>
+
+</div>
+
+
+<div class="setting">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+⚠️
+</div>
+
+<div>
+
+<strong>
+Segurança
+</strong>
+
+<small>
+Avisos importantes
+</small>
+
+</div>
+
+</div>
+
+<button
+class="switch on"
+onclick="toggleSwitch(this)">
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     CONFIRMAÇÕES
+================================= -->
+
+<section id="confirmation" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('security')">
+←
+</button>
+
+<h2>Confirmações</h2>
+
+</div>
+
+
+<div class="box">
+
+<h3>
+✅ Confirmação de operações
+</h3>
+
+<br>
+
+<p style="color:var(--muted);line-height:1.7">
+
+Antes de realizar uma transferência, o AMPARO
+pode apresentar novamente o destinatário, a chave
+Pix e o valor para que o usuário confira tudo.
+
+</p>
+
+<br>
+
+
+<div class="setting">
+
+<div>
+
+<strong>
+Confirmar transferências
+</strong>
+
+<small style="display:block;color:var(--muted);margin-top:4px">
+Revisar antes de concluir
+</small>
+
+</div>
+
+<button
+class="switch on"
+onclick="toggleSwitch(this)">
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     PRIVACIDADE
+================================= -->
+
+<section id="privacy" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('security')">
+←
+</button>
+
+<h2>Privacidade</h2>
+
+</div>
+
+
+<div class="settings">
+
+
+<div class="setting">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+📊
+</div>
+
+<div>
+
+<strong>
+Dados financeiros
+</strong>
+
+<small>
+Controle de informações financeiras
+</small>
+
+</div>
+
+</div>
+
+<strong class="in">
+✓
+</strong>
+
+</div>
+
+
+<div class="setting">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+📱
+</div>
+
+<div>
+
+<strong>
+Dados de contato
+</strong>
+
+<small>
+Nome, e-mail e telefone
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">
+→
+</span>
+
+</div>
+
+
+<div class="setting">
+
+<div class="setting-left">
+
+<div class="setting-icon">
+🤖
+</div>
+
+<div>
+
+<strong>
+Assistente
+</strong>
+
+<small>
+Preferências de atendimento
+</small>
+
+</div>
+
+</div>
+
+<span class="arrow">
+→
+</span>
+
+</div>
+
+</div>
+
+
+<br>
+
+<p style="color:var(--muted);font-size:13px;line-height:1.6">
+
+Esta versão representa o protótipo visual do projeto.
+Uma aplicação financeira real precisaria de Back-End,
+autenticação, banco de dados, políticas de privacidade
+e integração segura com instituições financeiras.
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- =================================
+     CONTA DIGITAL
+================================= -->
+
+<section id="account" class="screen">
+
+<div class="page">
+
+<div class="page-header">
+
+<button onclick="openScreen('profile')">
+←
+</button>
+
+<h2>Conta digital</h2>
+
+</div>
+
+
+<div class="box">
+
+<h3>
+🏦 Conta AMPARO
+</h3>
+
+<br>
+
+<p style="color:var(--muted);line-height:1.7">
+
+Conta demonstrativa preparada para representar
+uma futura integração com uma instituição financeira
+parceira.
+
+</p>
+
+<br>
+
+
+<div class="list">
+
+<div class="item">
+
+<span>
+Agência
+</span>
+
+<strong>
+0001
+</strong>
+
+</div>
+
+
+<div class="item">
+
+<span>
+Conta
+</span>
+
+<strong>
+00.000-0
+</strong>
+
+</div>
+
+
+<div class="item">
+
+<span>
+Pix
+</span>
+
+<strong class="in">
+Disponível
+</strong>
+
+</div>
+
+</div>
+
+<br>
+
+
+<div class="warning">
+
+🏦 <strong>Integração financeira</strong><br>
+
+A conexão real dependerá de uma instituição financeira
+parceira, APIs e implementação de Back-End.
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<script>
+
+/* =================================
+   DADOS DO USUÁRIO
+================================= */
+
+let user = {
+
+    name:"",
+    email:"",
+    phone:"",
+    password:"",
+    age:""
+
+};
+
+
+/* =================================
+   NAVEGAÇÃO
+================================= */
+
+function openScreen(id){
+
+    document
+        .querySelectorAll(".screen")
+        .forEach(screen=>{
+            screen.classList.remove("active");
+        });
+
+
+    const screen =
+        document.getElementById(id);
+
+
+    if(screen){
+
+        screen.classList.add("active");
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    }
+
+}
+
+
+/* =================================
+   IDADE
+================================= */
+
+function selectAge(age){
+
+    user.age = age;
+
+    openScreen("register");
+
+}
+
+
+/* =================================
+   CADASTRO
+================================= */
+
+function createAccount(){
+
+    const name =
+        document
+        .getElementById("registerName")
+        .value
+        .trim();
+
+
+    const email =
+        document
+        .getElementById("registerEmail")
+        .value
+        .trim();
+
+
+    const phone =
+        document
+        .getElementById("registerPhone")
+        .value
+        .trim();
+
+
+    const password =
+        document
+        .getElementById("registerPassword")
+        .value;
+
+
+    const password2 =
+        document
+        .getElementById("registerPassword2")
+        .value;
+
+
+    if(
+        !name ||
+        !email ||
+        !phone ||
+        !password ||
+        !password2
+    ){
+
+        toast("⚠️ Preencha todos os campos.");
+
+        return;
+    }
+
+
+    if(!email.includes("@")){
+
+        toast("⚠️ Digite um e-mail válido.");
+
+        return;
+    }
+
+
+    if(password.length < 4){
+
+        toast("⚠️ A senha precisa ter pelo menos 4 caracteres.");
+
+        return;
+    }
+
+
+    if(password !== password2){
+
+        toast("⚠️ As senhas não são iguais.");
+
+        return;
+    }
+
+
+    user.name = name;
+    user.email = email;
+    user.phone = phone;
+    user.password = password;
+
+
+    localStorage.setItem(
+        "amparoUser",
+        JSON.stringify(user)
+    );
+
+
+    toast("✅ Conta criada com sucesso!");
+
+
+    setTimeout(()=>{
+
+        openScreen("login");
+
+    },700);
+
+}
+
+
+/* =================================
+   LOGIN
+================================= */
+
+function enterAccount(){
+
+    const email =
+        document
+        .getElementById("loginEmail")
+        .value
+        .trim();
+
+
+    const password =
+        document
+        .getElementById("loginPassword")
+        .value;
+
+
+    const saved =
+        localStorage.getItem("amparoUser");
+
+
+    if(!saved){
+
+        toast("⚠️ Você ainda não criou uma conta.");
+
+        return;
+    }
+
+
+    user =
+        JSON.parse(saved);
+
+
+    if(
+        email !== user.email ||
+        password !== user.password
+    ){
+
+        toast("⚠️ E-mail ou senha incorretos.");
+
+        return;
+    }
+
+
+    updateUserInterface();
+
+
+    toast("✅ Login realizado!");
+
+
+    setTimeout(()=>{
+
+        openScreen("home");
+
+    },600);
+
+}
+
+
+/* =================================
+   ATUALIZAR PERFIL
+================================= */
+
+function updateUserInterface(){
+
+    const home =
+        document.getElementById("userNameHome");
+
+
+    const name =
+        document.getElementById("profileName");
+
+
+    const email =
+        document.getElementById("profileEmail");
+
+
+    const phone =
+        document.getElementById("profilePhone");
+
+
+    if(home)
+        home.textContent =
+            user.name || "Usuário";
+
+
+    if(name)
+        name.textContent =
+            user.name || "Usuário";
+
+
+    if(email)
+        email.textContent =
+            user.email || "Não informado";
+
+
+    if(phone)
+        phone.textContent =
+            user.phone || "Não informado";
+
+}
+
+
+/* =================================
+   SALVAR
+================================= */
+
+function saveUser(){
+
+    localStorage.setItem(
+        "amparoUser",
+        JSON.stringify(user)
+    );
+
+    updateUserInterface();
+
+}
+
+
+/* =================================
+   EDITAR NOME
+================================= */
+
+function editName(){
+
+    const value =
+        prompt(
+            "Digite seu nome:",
+            user.name
+        );
+
+
+    if(value && value.trim()){
+
+        user.name =
+            value.trim();
+
+        saveUser();
+
+        toast("✅ Nome atualizado!");
+
+    }
+
+}
+
+
+/* =================================
+   EDITAR E-MAIL
+================================= */
+
+function editEmail(){
+
+    const value =
+        prompt(
+            "Digite seu novo e-mail:",
+            user.email
+        );
+
+
+    if(!value) return;
+
+
+    if(!value.includes("@")){
+
+        toast("⚠️ E-mail inválido.");
+
+        return;
+    }
+
+
+    user.email =
+        value.trim();
+
+
+    saveUser();
+
+    toast("✅ E-mail atualizado!");
+
+}
+
+
+/* =================================
+   EDITAR TELEFONE
+================================= */
+
+function editPhone(){
+
+    const value =
+        prompt(
+            "Digite seu telefone:",
+            user.phone
+        );
+
+
+    if(!value) return;
+
+
+    user.phone =
+        value.trim();
+
+
+    saveUser();
+
+    toast("✅ Telefone atualizado!");
+
+}
+
+
+/* =================================
+   PIX / TRANSFERÊNCIA
+================================= */
+
+function reviewTransfer(){
+
+    const recipient =
+        document
+        .getElementById("recipient")
+        .value
+        .trim();
+
+
+    const key =
+        document
+        .getElementById("pixKey")
+        .value
+        .trim();
+
+
+    const amount =
+        Number(
             document
-                .getElementById("modalMovimentacoes")
-                .classList.add("ativo");
-        }
+            .getElementById("pixAmount")
+            .value
+        );
 
-        function fecharModal(id) {
-            document
-                .getElementById(id)
-                .classList.remove("ativo");
-        }
 
-        function fazerTransferencia() {
-            alert(
-                "💸 TRANSFERÊNCIAS\n\n" +
-                "Em breve você poderá realizar " +
-                "transferências de forma simples e segura."
+    if(!recipient || !key || !amount){
+
+        toast("⚠️ Preencha todos os campos.");
+
+        return;
+    }
+
+
+    if(amount <= 0){
+
+        toast("⚠️ Informe um valor válido.");
+
+        return;
+    }
+
+
+    const confirm =
+        window.confirm(
+
+            "CONFIRMAR TRANSFERÊNCIA\n\n" +
+
+            "Destinatário: " +
+            recipient +
+
+            "\n\nChave Pix: " +
+            key +
+
+            "\n\nValor: R$ " +
+            amount.toFixed(2) +
+
+            "\n\nEsta operação é apenas uma simulação."
+
+        );
+
+
+    if(!confirm)
+        return;
+
+
+    toast(
+        "✅ Transferência simulada com sucesso!"
+    );
+
+
+    document
+        .getElementById("recipient")
+        .value="";
+
+
+    document
+        .getElementById("pixKey")
+        .value="";
+
+
+    document
+        .getElementById("pixAmount")
+        .value="";
+
+}
+
+
+/* =================================
+   ASSISTENTE
+================================= */
+
+function sendMessage(){
+
+    const input =
+        document
+        .getElementById("chatInput");
+
+
+    const text =
+        input
+        .value
+        .trim();
+
+
+    if(!text)
+        return;
+
+
+    const messages =
+        document
+        .getElementById("messages");
+
+
+    const userMessage =
+        document.createElement("div");
+
+
+    userMessage.className =
+        "message user";
+
+
+    userMessage.textContent =
+        text;
+
+
+    messages.appendChild(
+        userMessage
+    );
+
+
+    input.value="";
+
+
+    messages.scrollTop =
+        messages.scrollHeight;
+
+
+    setTimeout(()=>{
+
+        const bot =
+            document.createElement("div");
+
+
+        bot.className =
+            "message bot";
+
+
+        bot.textContent =
+            getAssistantAnswer(text);
+
+
+        messages.appendChild(bot);
+
+
+        messages.scrollTop =
+            messages.scrollHeight;
+
+    },500);
+
+}
+
+
+function getAssistantAnswer(text){
+
+    const t =
+        text.toLowerCase();
+
+
+    if(
+        t.includes("pix")
+    ){
+
+        return "O Pix permite transferências instantâneas. Antes de confirmar, confira sempre o nome do destinatário, a chave e o valor.";
+
+    }
+
+
+    if(
+        t.includes("golpe") ||
+        t.includes("fraude") ||
+        t.includes("roubo")
+    ){
+
+        return "Se alguém pedir sua senha, código de confirmação ou pressionar você para transferir dinheiro rapidamente, pare. Nunca compartilhe códigos ou senhas.";
+
+    }
+
+
+    if(
+        t.includes("saldo") ||
+        t.includes("dinheiro")
+    ){
+
+        return "Você pode acompanhar seu saldo e suas entradas e despesas na tela de Movimentações.";
+
+    }
+
+
+    if(
+        t.includes("cartão")
+    ){
+
+        return "O Cartão AMPARO é apresentado aqui como protótipo. A ideia é facilitar o acompanhamento dos gastos.";
+
+    }
+
+
+    if(
+        t.includes("idoso") ||
+        t.includes("letra") ||
+        t.includes("enxergar") ||
+        t.includes("difícil")
+    ){
+
+        return "Você pode apertar o botão 'Aa' para aumentar o tamanho dos textos e facilitar a leitura.";
+
+    }
+
+
+    if(
+        t.includes("transfer")
+    ){
+
+        return "Antes de transferir, confira destinatário, chave Pix e valor. Nesta demonstração nenhuma transferência envia dinheiro real.";
+
+    }
+
+
+    return "Posso ajudar com Pix, saldo, cartão, transferências, segurança, golpes e acessibilidade. 😊";
+
+}
+
+
+/* =================================
+   SWITCH
+================================= */
+
+function toggleSwitch(button){
+
+    button.classList.toggle("on");
+
+}
+
+
+/* =================================
+   ACESSIBILIDADE
+================================= */
+
+function toggleAccessibility(){
+
+    document
+        .body
+        .classList
+        .toggle("large");
+
+
+    if(
+        document.body.classList.contains("large")
+    ){
+
+        toast("🔎 Texto aumentado!");
+
+    }else{
+
+        toast("🔎 Texto normalizado!");
+
+    }
+
+}
+
+
+/* =================================
+   TOAST
+================================= */
+
+function toast(message){
+
+    const element =
+        document
+        .getElementById("toast");
+
+
+    element.textContent =
+        message;
+
+
+    element.classList.add("show");
+
+
+    clearTimeout(
+        window.toastTimer
+    );
+
+
+    window.toastTimer =
+        setTimeout(()=>{
+
+            element.classList.remove("show");
+
+        },2500);
+
+}
+
+
+/* =================================
+   CARREGAR CONTA
+================================= */
+
+window.addEventListener(
+    "DOMContentLoaded",
+    ()=>{
+
+        const saved =
+            localStorage.getItem(
+                "amparoUser"
             );
+
+
+        if(saved){
+
+            try{
+
+                user =
+                    JSON.parse(saved);
+
+                updateUserInterface();
+
+            }catch(error){
+
+                console.log(
+                    "Dados locais inválidos."
+                );
+
+            }
+
         }
 
-        function falarComAssistente() {
-            alert(
-                "🗣️ ASSISTENTE AMPARO\n\n" +
-                "Olá! 👋\n\n" +
-                "Estou aqui para ajudar você " +
-                "com suas dúvidas financeiras."
-            );
-        }
+    }
+);
 
-    </script>
+</script>
 
 </body>
 </html>
+```

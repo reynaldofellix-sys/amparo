@@ -3,111 +3,635 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amparo</title>
+    <title>AMPARO | Seu dinheiro, sua independência</title>
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background: #f4f7f6;
-            color: #222;
+            box-sizing: border-box;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            color: white;
+            background:
+                radial-gradient(circle at 15% 20%, rgba(0, 220, 180, 0.18), transparent 30%),
+                radial-gradient(circle at 85% 70%, rgba(80, 100, 255, 0.20), transparent 30%),
+                linear-gradient(135deg, #07111f, #0b1d2d 55%, #07111f);
+            overflow-x: hidden;
+        }
+
+        /* Fundo animado */
+
+        .bolha {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(2px);
+            opacity: 0.18;
+            pointer-events: none;
+            animation: flutuar 8s ease-in-out infinite;
+        }
+
+        .bolha1 {
+            width: 220px;
+            height: 220px;
+            background: #00e6b8;
+            top: 10%;
+            left: -80px;
+        }
+
+        .bolha2 {
+            width: 300px;
+            height: 300px;
+            background: #536dfe;
+            right: -120px;
+            bottom: 5%;
+            animation-delay: 2s;
+        }
+
+        @keyframes flutuar {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-35px);
+            }
+        }
+
+        /* Cabeçalho */
 
         header {
-            background: #ffffff;
-            padding: 25px;
-            text-align: center;
-            border-bottom: 1px solid #ddd;
+            width: 100%;
+            padding: 22px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+            background: rgba(7, 17, 31, 0.55);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
-        header h1 {
-            margin: 0;
-            font-size: 36px;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
-        header p {
-            font-size: 18px;
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #00e6b8, #5b7cfa);
+            font-size: 23px;
+            box-shadow: 0 8px 30px rgba(0, 230, 184, 0.25);
         }
+
+        .logo h1 {
+            font-size: 25px;
+            letter-spacing: 2px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #b7c4d4;
+        }
+
+        .status-dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #00e6b8;
+            box-shadow: 0 0 12px #00e6b8;
+            animation: pulsar 2s infinite;
+        }
+
+        @keyframes pulsar {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.45;
+                transform: scale(1.4);
+            }
+        }
+
+        /* Conteúdo principal */
 
         main {
-            max-width: 700px;
-            margin: 40px auto;
-            padding: 20px;
+            width: min(1100px, 92%);
+            margin: 0 auto;
+            padding: 70px 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero {
             text-align: center;
+            animation: aparecer 0.8s ease;
         }
 
-        h2 {
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            background: rgba(0, 230, 184, 0.10);
+            border: 1px solid rgba(0, 230, 184, 0.25);
+            color: #63f5d6;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .hero h2 {
+            font-size: clamp(40px, 7vw, 75px);
+            line-height: 1;
+            margin-bottom: 20px;
+            letter-spacing: -3px;
+        }
+
+        .hero h2 span {
+            background: linear-gradient(90deg, #62f5d6, #7b9cff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 620px;
+            margin: auto;
+            color: #b7c4d4;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* Card do saldo */
+
+        .saldo {
+            width: min(700px, 100%);
+            margin: 45px auto;
+            padding: 30px;
+            border-radius: 28px;
+            background: linear-gradient(
+                135deg,
+                rgba(255,255,255,0.13),
+                rgba(255,255,255,0.05)
+            );
+            border: 1px solid rgba(255,255,255,0.12);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 25px 70px rgba(0,0,0,0.30);
+            position: relative;
+            overflow: hidden;
+            animation: subir 1s ease;
+        }
+
+        .saldo::before {
+            content: "";
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: rgba(0,230,184,0.12);
+            right: -70px;
+            top: -80px;
+        }
+
+        @keyframes subir {
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .saldo-topo {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #aebccd;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .saldo-valor {
+            font-size: clamp(36px, 6vw, 52px);
+            font-weight: bold;
+            letter-spacing: -2px;
+        }
+
+        .saldo-info {
+            margin-top: 15px;
+            color: #65efd2;
+            font-size: 14px;
+        }
+
+        /* Opções */
+
+        .titulo-secao {
+            text-align: center;
+            margin: 60px 0 25px;
+        }
+
+        .titulo-secao h3 {
             font-size: 28px;
-            margin-bottom: 25px;
+            margin-bottom: 8px;
         }
 
-        button {
-            display: block;
-            width: 100%;
-            margin: 15px 0;
-            padding: 18px;
-            font-size: 19px;
-            border: none;
-            border-radius: 10px;
+        .titulo-secao p {
+            color: #8fa1b5;
+        }
+
+        .opcoes {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            position: relative;
+            padding: 28px;
+            min-height: 190px;
+            border-radius: 24px;
+            border: 1px solid rgba(255,255,255,0.10);
+            background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(15px);
             cursor: pointer;
-            background: #ffffff;
-            border: 2px solid #ddd;
+            text-align: left;
+            color: white;
+            transition:
+                transform 0.3s ease,
+                border-color 0.3s ease,
+                background 0.3s ease;
+            overflow: hidden;
         }
 
-        button:hover {
-            transform: scale(1.02);
+        .card:hover {
+            transform: translateY(-9px);
+            border-color: rgba(0,230,184,0.45);
+            background: rgba(255,255,255,0.10);
         }
+
+        .card-icon {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 17px;
+            font-size: 25px;
+            margin-bottom: 22px;
+            background: rgba(255,255,255,0.09);
+        }
+
+        .card h4 {
+            font-size: 20px;
+            margin-bottom: 9px;
+        }
+
+        .card p {
+            color: #92a4b8;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .seta {
+            position: absolute;
+            right: 22px;
+            bottom: 22px;
+            color: #65efd2;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .seta {
+            transform: translateX(5px);
+        }
+
+        /* Rodapé */
 
         footer {
             text-align: center;
-            margin-top: 40px;
+            padding: 55px 20px 30px;
+            color: #718297;
+            font-size: 13px;
+        }
+
+        /* Janelinha personalizada */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.65);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
             padding: 20px;
-            font-size: 15px;
+        }
+
+        .modal.ativo {
+            display: flex;
+            animation: aparecer 0.25s ease;
+        }
+
+        .modal-box {
+            width: min(500px, 100%);
+            background: #101e2d;
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 30px 100px rgba(0,0,0,0.5);
+        }
+
+        .modal-box h3 {
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .movimento {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .movimento-info strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .movimento-info small {
+            color: #8495a9;
+        }
+
+        .entrada {
+            color: #5ce6c8;
+        }
+
+        .saida {
+            color: #ff8d9d;
+        }
+
+        .fechar {
+            width: 100%;
+            margin-top: 22px;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: #00cfa7;
+            color: #06151a;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Responsividade */
+
+        @media (max-width: 800px) {
+            .opcoes {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 18px 5%;
+            }
+
+            main {
+                padding-top: 50px;
+            }
+
+            .status {
+                display: none;
+            }
+
+            .saldo {
+                padding: 25px;
+            }
         }
     </style>
 </head>
 
 <body>
 
+    <div class="bolha bolha1"></div>
+    <div class="bolha bolha2"></div>
+
     <header>
-        <h1>AMPARO</h1>
-        <p>Seu dinheiro, sua independência.</p>
+        <div class="logo">
+            <div class="logo-icon">🛡️</div>
+            <h1>AMPARO</h1>
+        </div>
+
+        <div class="status">
+            <div class="status-dot"></div>
+            Sistema protegido
+        </div>
     </header>
 
     <main>
-        <h2>Como podemos ajudar?</h2>
 
-        <button onclick="mostrarMovimentacoes()">💰 Ver minhas movimentações</button>
+        <section class="hero">
 
-        <button onclick="fazerTransferencia()">💸 Fazer uma transferência</button>
+            <div class="tag">
+                ✦ Tecnologia para uma vida financeira mais segura
+            </div>
 
-        <button onclick="falarComAssistente()">🗣️ Falar com o assistente</button>
+            <h2>
+                Seu dinheiro.<br>
+                <span>Sua independência.</span>
+            </h2>
+
+            <p>
+                Uma experiência simples, segura e acessível para
+                ajudar você a cuidar da sua vida financeira.
+            </p>
+
+        </section>
+
+        <section class="saldo">
+
+            <div class="saldo-topo">
+                <span>Saldo disponível</span>
+                <span>● Conta principal</span>
+            </div>
+
+            <div class="saldo-valor">
+                R$ 1.250,00
+            </div>
+
+            <div class="saldo-info">
+                ↑ Tudo sob controle
+            </div>
+
+        </section>
+
+        <section>
+
+            <div class="titulo-secao">
+                <h3>Como podemos ajudar?</h3>
+                <p>Escolha uma opção para continuar</p>
+            </div>
+
+            <div class="opcoes">
+
+                <button class="card" onclick="mostrarMovimentacoes()">
+                    <div class="card-icon">💰</div>
+
+                    <h4>Movimentações</h4>
+
+                    <p>
+                        Acompanhe seu saldo, entradas e
+                        despesas de forma simples.
+                    </p>
+
+                    <span class="seta">→</span>
+                </button>
+
+                <button class="card" onclick="fazerTransferencia()">
+                    <div class="card-icon">💸</div>
+
+                    <h4>Transferências</h4>
+
+                    <p>
+                        Faça transferências com segurança
+                        e confirme cada operação.
+                    </p>
+
+                    <span class="seta">→</span>
+                </button>
+
+                <button class="card" onclick="falarComAssistente()">
+                    <div class="card-icon">🗣️</div>
+
+                    <h4>Assistente AMPARO</h4>
+
+                    <p>
+                        Tire dúvidas e receba ajuda para
+                        cuidar melhor do seu dinheiro.
+                    </p>
+
+                    <span class="seta">→</span>
+                </button>
+
+            </div>
+
+        </section>
+
     </main>
 
     <footer>
-        Desenvolvido pela equipe Ordem da Fênix 🔥
+        AMPARO © 2026 · Desenvolvido pela equipe Ordem da Fênix 🔥
     </footer>
 
+
+    <!-- JANELA DE MOVIMENTAÇÕES -->
+
+    <div class="modal" id="modalMovimentacoes">
+
+        <div class="modal-box">
+
+            <h3>💰 Minhas movimentações</h3>
+
+            <div class="movimento">
+                <div class="movimento-info">
+                    <strong>INSS</strong>
+                    <small>Recebimento</small>
+                </div>
+
+                <strong class="entrada">+ R$ 600,00</strong>
+            </div>
+
+            <div class="movimento">
+                <div class="movimento-info">
+                    <strong>Mercado</strong>
+                    <small>Pagamento</small>
+                </div>
+
+                <strong class="saida">- R$ 80,00</strong>
+            </div>
+
+            <div class="movimento">
+                <div class="movimento-info">
+                    <strong>Farmácia</strong>
+                    <small>Pagamento</small>
+                </div>
+
+                <strong class="saida">- R$ 150,00</strong>
+            </div>
+
+            <button class="fechar" onclick="fecharModal('modalMovimentacoes')">
+                Fechar
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        function mostrarMovimentacoes() {
+            document
+                .getElementById("modalMovimentacoes")
+                .classList.add("ativo");
+        }
+
+        function fecharModal(id) {
+            document
+                .getElementById(id)
+                .classList.remove("ativo");
+        }
+
+        function fazerTransferencia() {
+            alert(
+                "💸 TRANSFERÊNCIAS\n\n" +
+                "Em breve você poderá realizar " +
+                "transferências de forma simples e segura."
+            );
+        }
+
+        function falarComAssistente() {
+            alert(
+                "🗣️ ASSISTENTE AMPARO\n\n" +
+                "Olá! 👋\n\n" +
+                "Estou aqui para ajudar você " +
+                "com suas dúvidas financeiras."
+            );
+        }
+
+    </script>
+
 </body>
-</html> <script>
-    function mostrarMovimentacoes() {
-        alert("Minhas movimentações\n\nSaldo: R$ 1.250,00\n\n+ R$ 600,00 - INSS\n- R$ 80,00 - Mercado\n- R$ 150,00 - Farmácia");
-    }
-
-    function fazerTransferencia() {
-        alert("Área de transferência\n\nAqui o usuário poderá realizar uma transferência com segurança.");
-    }
-</script> <script>
-    function mostrarMovimentacoes() {
-        alert("Minhas movimentações\n\nSaldo: R$ 1.250,00\n\n+ R$ 600,00 - INSS\n- R$ 80,00 - Mercado\n- R$ 150,00 - Farmácia");
-    }
-
-    function fazerTransferencia() {
-        alert("Área de transferência\n\nAqui o usuário poderá realizar uma transferência com segurança.");
-    }
-
-    function falarComAssistente() {
-        alert("Olá! 👋\n\nComo posso ajudar você hoje?");
-    }
-</script>
+</html>

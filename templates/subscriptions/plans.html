@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% load static amparo_format %}
+{% block title %}Planos — AMPARO{% endblock %}
+{% block content %}
+{% if not user.is_authenticated %}<div class="plans-brand"><a class="brand" href="{% url 'landing' %}" aria-label="AMPARO — página inicial"><img class="brand-logo" src="{% static 'brand/logo-mark.svg' %}" alt="" width="48" height="48"><span class="brand-copy"><strong>AMPARO</strong><small>Tecnologia para cuidar</small></span></a><a class="button button-ghost compact" href="{% url 'accounts:login' %}">Entrar</a></div>{% endif %}
+<div class="page-title plans-title"><div><a class="back-link" href="{% if user.is_authenticated %}{% url 'dashboard' %}{% else %}{% url 'landing' %}{% endif %}">← Voltar</a><span class="eyebrow">ESCOLHA COM CALMA</span><h1>Planos simples e transparentes</h1><p>Comece gratuitamente e mude quando precisar. Nenhum pagamento é feito sem sua confirmação.</p></div></div>
+<section class="plans-grid" aria-label="Planos disponíveis">
+  {% for plan in plans %}
+  <article class="plan-card{% if plan.is_recommended %} recommended{% endif %}">
+    {% if plan.is_recommended %}<span class="plan-badge">Mais escolhido</span>{% endif %}
+    <span class="overline">PLANO {{ plan.name|upper }}</span><h2>{{ plan.name }}</h2><p>{{ plan.description }}</p>
+    <div class="plan-price">{% if plan.is_free %}<strong>Grátis</strong><small>para começar</small>{% else %}<strong>{{ plan.price|brl }}</strong><small>por {{ plan.billing_label }}</small>{% endif %}</div>
+    <ul class="plan-features">{% for feature in plan.features %}<li><span aria-hidden="true">✓</span>{{ feature }}</li>{% endfor %}</ul>
+    {% if current_subscription and current_subscription.plan_id == plan.id and current_subscription.status == 'active' %}<span class="button button-current full" aria-current="true">Seu plano atual</span>
+    {% elif user.is_authenticated %}{% if plan.is_free or payments_enabled and plan.mercado_pago_plan_id %}<form method="post" action="{% url 'subscriptions:subscribe' plan.slug %}" data-single-submit>{% csrf_token %}<button class="button {% if plan.is_recommended %}button-primary{% else %}button-ghost{% endif %} full" type="submit">{% if plan.is_free %}Escolher plano gratuito{% else %}Assinar com segurança{% endif %}</button></form>{% else %}<button class="button button-disabled full" type="button" disabled>Pagamento em configuração</button>{% endif %}
+    {% else %}<a class="button {% if plan.is_recommended %}button-primary{% else %}button-ghost{% endif %} full" href="{% url 'accounts:register' %}">Criar conta para escolher</a>{% endif %}
+  </article>
+  {% empty %}<div class="panel empty-state"><strong>Planos em preparação</strong><p>Volte em breve para conhecer as opções.</p></div>{% endfor %}
+</section>
+<aside class="plans-safety"><strong>Pagamento protegido</strong><p>O AMPARO nunca recebe nem armazena os dados do seu cartão. O pagamento acontece no ambiente seguro da gateway.</p></aside>
+{% endblock %}

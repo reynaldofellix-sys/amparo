@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Meu perfil — AMPARO{% endblock %}
+{% block content %}
+<div class="page-title narrow-title"><div><a class="back-link" href="{% url 'dashboard' %}">← Início</a><span class="eyebrow">MINHA CONTA</span><h1>Perfil e acessibilidade</h1><p>Mantenha seus dados e preferências atualizados.</p></div></div>
+<section class="panel form-panel centered-panel"><form method="post" class="stack-form" novalidate>{% csrf_token %}{{ form.non_field_errors }}{% for field in form %}<div class="field {% if field.field.widget.input_type == 'checkbox' %}field-check{% endif %}"><label for="{{ field.id_for_label }}">{% if field.field.widget.input_type == 'checkbox' %}{{ field }}{% endif %}{{ field.label }}</label>{% if field.field.widget.input_type != 'checkbox' %}{{ field }}{% endif %}{{ field.errors }}</div>{% endfor %}<button class="button button-primary full" type="submit">Salvar alterações</button></form><form method="post" action="{% url 'accounts:logout' %}" class="logout-form">{% csrf_token %}<button class="text-danger" type="submit">Sair da conta</button></form></section>
+{% endblock %}

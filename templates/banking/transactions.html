@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% load amparo_format %}
+{% block title %}Movimentações — AMPARO{% endblock %}
+{% block content %}
+<div class="page-title"><div><a class="back-link" href="{% url 'dashboard' %}">← Início</a><span class="eyebrow">CONTA DEMONSTRATIVA</span><h1>Movimentações</h1><p>Acompanhe cada entrada e saída do ledger.</p></div><div class="mini-balance"><small>Saldo disponível</small><strong>{{ account.balance|brl }}</strong></div></div>
+<section class="panel table-panel"><div class="entry-list">{% for entry in page %}<div class="entry"><span class="entry-icon {% if entry.direction == 'credit' %}credit{% else %}debit{% endif %}">{% if entry.direction == 'credit' %}↓{% else %}↑{% endif %}</span><div><strong>{{ entry.description }}</strong><small>{{ entry.occurred_at|date:'d/m/Y · H:i' }} · Ref. {{ entry.reference|truncatechars:22 }}</small></div><b class="amount {{ entry.direction }}">{% if entry.direction == 'credit' %}+{% else %}−{% endif %} {{ entry.amount|brl }}</b></div>{% empty %}<div class="empty-state"><strong>Sem movimentações</strong><p>A conta ainda não possui lançamentos.</p></div>{% endfor %}</div>
+{% if page.paginator.num_pages > 1 %}<nav class="pagination" aria-label="Paginação">{% if page.has_previous %}<a href="?page={{ page.previous_page_number }}">← Anterior</a>{% endif %}<span>Página {{ page.number }} de {{ page.paginator.num_pages }}</span>{% if page.has_next %}<a href="?page={{ page.next_page_number }}">Próxima →</a>{% endif %}</nav>{% endif %}</section>
+{% endblock %}

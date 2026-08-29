@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% load static %}
+{% block title %}Criar conta — AMPARO{% endblock %}
+{% block main_class %}auth-shell{% endblock %}
+{% block content %}
+<section class="auth-card auth-card-wide">
+  <div class="brand auth-brand"><img class="brand-logo" src="{% static 'brand/logo-mark.svg' %}" alt="" width="48" height="48"><span class="brand-copy"><strong>AMPARO</strong><small>Tecnologia para cuidar</small></span></div>
+  <a class="back-link" href="{% url 'landing' %}">← Voltar</a>
+  <span class="eyebrow">CONTA DEMONSTRATIVA</span>
+  <h1>Comece com tranquilidade</h1>
+  <p class="lead">Seus dados ficam protegidos no back-end e sua senha nunca é armazenada em texto puro.</p>
+  {% if google_oauth_enabled %}<p class="social-start"><a class="button button-google full" href="{% url 'accounts:login' %}"><span class="google-mark" aria-hidden="true">G</span> Começar com Google</a></p><div class="auth-divider"><span>ou preencha seus dados</span></div>{% endif %}
+  <form method="post" class="stack-form form-grid" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}<div class="field {% if field.name == 'consent' %}field-check full-row{% endif %}"><label for="{{ field.id_for_label }}">{% if field.name == 'consent' %}{{ field }}{% endif %}{{ field.label }}</label>{% if field.name != 'consent' %}{{ field }}{% endif %}{{ field.errors }}{% if field.help_text %}<small>{{ field.help_text|safe }}</small>{% endif %}</div>{% endfor %}
+    <button class="button button-primary full full-row" type="submit">Criar minha conta</button>
+  </form>
+  <p class="form-foot">Já possui conta? <a href="{% url 'accounts:login' %}">Entrar</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% load amparo_format %}
+{% block title %}Transferir — AMPARO{% endblock %}
+{% block content %}
+<div class="page-title narrow-title"><div><a class="back-link" href="{% url 'dashboard' %}">← Início</a><span class="eyebrow">PIX DEMONSTRATIVO</span><h1>Para quem você vai transferir?</h1><p>Preencha com calma. Você revisará tudo antes de concluir.</p></div></div>
+<div class="form-layout"><section class="panel form-panel"><form method="post" class="stack-form" novalidate>{% csrf_token %}{{ form.non_field_errors }}{% for field in form %}{% if not field.is_hidden %}<div class="field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{{ field.errors }}</div>{% else %}{{ field }}{% endif %}{% endfor %}<button class="button button-primary full" type="submit">Revisar transferência →</button></form></section><aside class="safety-panel"><span>!</span><h2>Você está no controle</h2><ul><li>Nenhum dinheiro real será enviado.</li><li>Confira a chave diretamente com o destinatário.</li><li>O AMPARO nunca pedirá sua senha.</li></ul><div><small>Saldo disponível</small><strong>{{ user.financial_account.balance|brl }}</strong></div></aside></div>
+{% endblock %}

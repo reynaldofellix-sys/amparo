@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Cartão — AMPARO{% endblock %}
+{% block content %}
+<div class="page-title narrow-title"><div><a class="back-link" href="{% url 'dashboard' %}">← Início</a><span class="eyebrow">CARTÃO DEMONSTRATIVO</span><h1>Cartão AMPARO</h1><p>Acompanhe a intenção do produto sem emissão ou bandeira bancária real.</p></div></div>
+<div class="card-layout"><div class="visual-card"><div><span>AMPARO</span><span>DEMO</span></div><strong>•••• •••• •••• {% if card.last_four %}{{ card.last_four }}{% else %}0000{% endif %}</strong><small>{{ user.full_name|upper }}</small></div><section class="panel card-status"><span class="eyebrow">STATUS</span>{% if card %}<h2>{{ card.get_status_display }}</h2><p>Solicitação registrada em {{ card.created_at|date:'d/m/Y' }}. Nenhum cartão real será emitido.</p>{% else %}<h2>Ainda não solicitado</h2><p>Registre uma solicitação acadêmica para demonstrar este fluxo.</p><form method="post" action="{% url 'card-request' %}">{% csrf_token %}<button class="button button-primary full" type="submit">Solicitar cartão demonstrativo</button></form>{% endif %}</section></div>
+{% endblock %}

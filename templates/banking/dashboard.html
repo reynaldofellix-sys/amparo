@@ -1,0 +1,37 @@
+{% extends "base.html" %}{% load amparo_format %}
+{% block title %}Início — AMPARO{% endblock %}
+{% block content %}
+<section class="welcome-row">
+  <div><span class="overline">OLÁ, {{ user.first_name_display|upper }}</span><h1>Como podemos ajudar hoje?</h1><p>Escolha uma opção abaixo. Você poderá voltar a qualquer momento.</p></div>
+  <a class="text-link" href="{% url 'accounts:profile' %}">{% include 'components/icon.html' with name='user' %} Meu perfil</a>
+</section>
+
+<section class="balance-card" aria-label="Resumo da conta">
+  <div class="balance-head"><span>Saldo disponível</span><span class="account-status">● Conta {{ account.get_status_display }}</span></div>
+  <strong>{{ account.balance|brl }}</strong>
+  <div class="balance-foot"><span>Agência {{ account.branch }}</span><span>Conta {{ account.number }}</span></div>
+</section>
+
+<section class="section-block">
+  <div class="section-heading"><span class="overline">AÇÕES PRINCIPAIS</span><h2>Escolha o que deseja fazer</h2></div>
+  <div class="action-grid">
+    <a class="action-card accent" href="{% url 'transfer-create' %}"><span class="action-icon">{% include 'components/icon.html' with name='transfer' %}</span><span><strong>Transferir</strong><small>Enviar um Pix demonstrativo</small></span>{% include 'components/icon.html' with name='chevron' class='action-chevron' %}</a>
+    <a class="action-card" href="{% url 'transactions' %}"><span class="action-icon">{% include 'components/icon.html' with name='movements' %}</span><span><strong>Movimentações</strong><small>Ver entradas e saídas</small></span>{% include 'components/icon.html' with name='chevron' class='action-chevron' %}</a>
+    <a class="action-card" href="{% url 'assistant' %}"><span class="action-icon">{% include 'components/icon.html' with name='help' %}</span><span><strong>Preciso de ajuda</strong><small>Tirar uma dúvida com calma</small></span>{% include 'components/icon.html' with name='chevron' class='action-chevron' %}</a>
+    <a class="action-card" href="{% url 'accounts:security' %}"><span class="action-icon">{% include 'components/icon.html' with name='security' %}</span><span><strong>Segurança</strong><small>Alertas e texto ampliado</small></span>{% include 'components/icon.html' with name='chevron' class='action-chevron' %}</a>
+  </div>
+</section>
+
+<section class="resource-links" aria-label="Outros recursos">
+  <a href="{% url 'account-detail' %}"><span>{% include 'components/icon.html' with name='account' %}</span><div><strong>Dados da conta</strong><small>Agência, número e status</small></div>{% include 'components/icon.html' with name='chevron' %}</a>
+  <a href="{% url 'card-detail' %}"><span>{% include 'components/icon.html' with name='card' %}</span><div><strong>Cartão AMPARO</strong><small>Acompanhar solicitação</small></div>{% include 'components/icon.html' with name='chevron' %}</a>
+  <a href="{% url 'privacy' %}"><span>{% include 'components/icon.html' with name='privacy' %}</span><div><strong>Privacidade</strong><small>Dados e eventos recentes</small></div>{% include 'components/icon.html' with name='chevron' %}</a>
+</section>
+
+<section class="content-grid">
+  <div class="panel"><div class="panel-head"><div><span class="overline">ATIVIDADE RECENTE</span><h2>Últimas movimentações</h2></div><a href="{% url 'transactions' %}">Ver todas</a></div>
+    <div class="entry-list">{% for entry in recent_entries %}<div class="entry"><span class="entry-icon {% if entry.direction == 'credit' %}credit{% else %}debit{% endif %}">{% if entry.direction == 'credit' %}↓{% else %}↑{% endif %}</span><div><strong>{{ entry.description }}</strong><small>{{ entry.occurred_at|date:'d/m/Y · H:i' }}</small></div><b class="amount {{ entry.direction }}">{% if entry.direction == 'credit' %}+{% else %}−{% endif %} {{ entry.amount|brl }}</b></div>{% empty %}<div class="empty-state"><span>{% include 'components/icon.html' with name='movements' %}</span><strong>Nenhuma movimentação ainda</strong><p>Quando houver uma entrada ou saída, ela aparecerá aqui.</p></div>{% endfor %}</div>
+  </div>
+  <aside class="care-card"><span class="care-icon">{% include 'components/icon.html' with name='alert' %}</span><span class="overline">DICA DE SEGURANÇA</span><h2>Urgência é sinal de alerta.</h2><p>Nunca compartilhe senhas ou códigos. Antes de transferir, confirme os dados por outro canal.</p><a href="{% url 'assistant' %}">Conversar com o assistente →</a></aside>
+</section>
+{% endblock %}

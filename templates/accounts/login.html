@@ -1,0 +1,28 @@
+{% extends "base.html" %}{% load static %}
+{% block title %}Entrar — AMPARO{% endblock %}
+{% block main_class %}auth-shell{% endblock %}
+{% block content %}
+<section class="auth-card">
+  <div class="brand auth-brand"><img class="brand-logo" src="{% static 'brand/logo-mark.svg' %}" alt="" width="48" height="48"><span class="brand-copy"><strong>AMPARO</strong><small>Tecnologia para cuidar</small></span></div>
+  <a class="back-link" href="{% url 'landing' %}">← Voltar</a>
+  <span class="eyebrow">ACESSO SEGURO</span>
+  <h1>Bem-vindo de volta</h1>
+  <p class="lead">Entre para acompanhar sua conta demonstrativa.</p>
+  {% if google_oauth_enabled %}
+  <form method="post" action="{% url 'google_login' %}">
+    {% csrf_token %}
+    <button class="button button-google full" type="submit"><span class="google-mark" aria-hidden="true">G</span> Continuar com Google</button>
+  </form>
+  <div class="auth-divider"><span>ou entre com e-mail</span></div>
+  {% else %}
+  <div class="oauth-notice" role="note"><strong>Login com Google preparado</strong><span>Será ativado assim que as credenciais de produção forem configuradas.</span></div>
+  {% endif %}
+  <form method="post" class="stack-form" novalidate>
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}<div class="field"><label for="{{ field.id_for_label }}">{{ field.label }}</label>{{ field }}{{ field.errors }}</div>{% endfor %}
+    <button class="button button-primary full" type="submit">Entrar com segurança</button>
+  </form>
+  <p class="form-foot">Ainda não possui conta? <a href="{% url 'accounts:register' %}">Criar conta</a></p>
+</section>
+{% endblock %}

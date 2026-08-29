@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% load amparo_format %}
+{% block title %}Comprovante demonstrativo — AMPARO{% endblock %}
+{% block content %}
+<section class="receipt"><div class="receipt-check">✓</div><span class="eyebrow">{{ transfer.get_status_display|upper }}</span><h1>Transferência demonstrativa</h1><strong class="receipt-value">{{ transfer.amount|brl }}</strong><dl><div><dt>Para</dt><dd>{{ transfer.recipient_name }}</dd></div><div><dt>Chave</dt><dd>{{ transfer.pix_key }}</dd></div><div><dt>Data</dt><dd>{{ transfer.completed_at|date:'d/m/Y · H:i' }}</dd></div><div><dt>Identificador</dt><dd>{{ transfer.id }}</dd></div></dl><p class="demo-notice">Este documento não é um comprovante bancário e não representa movimentação de dinheiro real.</p><a class="button button-primary full" href="{% url 'dashboard' %}">Voltar ao início</a></section>
+{% endblock %}

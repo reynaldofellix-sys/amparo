@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Assistente — AMPARO{% endblock %}
+{% block content %}
+<div class="page-title narrow-title"><div><a class="back-link" href="{% url 'dashboard' %}">← Início</a><span class="eyebrow">AJUDA EM LINGUAGEM SIMPLES</span><h1>Assistente AMPARO</h1><p>Tire dúvidas educativas sobre segurança e vida financeira.</p></div></div>
+<section class="chat-panel"><div class="chat-disclaimer">O assistente oferece orientação educativa e não substitui atendimento bancário ou profissional.</div><div class="chat-messages" aria-live="polite"><div class="bubble bot"><strong>AMPARO</strong><p>Olá, {{ user.first_name_display }}! Posso explicar Pix, saldo, segurança, golpes e acessibilidade.</p></div>{% for message in assistant_messages %}<div class="bubble user"><strong>Você</strong><p>{{ message.question }}</p></div><div class="bubble bot"><strong>AMPARO</strong><p>{{ message.answer }}</p></div>{% endfor %}</div><form method="post" class="chat-form">{% csrf_token %}<label class="visually-hidden" for="{{ form.question.id_for_label }}">{{ form.question.label }}</label>{{ form.question }}<button class="button button-primary" type="submit">Enviar pergunta</button>{{ form.question.errors }}</form></section>
+{% endblock %}

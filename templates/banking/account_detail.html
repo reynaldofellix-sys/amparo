@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% load amparo_format %}
+{% block title %}Dados da conta — AMPARO{% endblock %}
+{% block content %}
+<div class="page-title narrow-title"><div><a class="back-link" href="{% url 'dashboard' %}">← Início</a><span class="eyebrow">CONTA DIGITAL DEMONSTRATIVA</span><h1>Dados da conta</h1><p>Estrutura pronta para futura integração com uma instituição financeira autorizada.</p></div></div>
+<section class="review-card account-card"><dl><div><dt>Titular</dt><dd>{{ user.full_name }}</dd></div><div><dt>Agência</dt><dd>{{ account.branch }}</dd></div><div><dt>Conta</dt><dd>{{ account.number }}</dd></div><div><dt>Status</dt><dd class="success-text">{{ account.get_status_display }}</dd></div><div><dt>Saldo demonstrativo</dt><dd>{{ account.balance|brl }}</dd></div></dl><div class="warning-box"><strong>Importante</strong><p>O AMPARO não é uma instituição financeira. Estes dados existem apenas no ambiente acadêmico.</p></div></section>
+{% endblock %}

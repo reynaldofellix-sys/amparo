@@ -1,0 +1,4 @@
+{% extends "base.html" %}
+{% block title %}Não foi possível entrar — AMPARO{% endblock %}
+{% block main_class %}auth-shell{% endblock %}
+{% block content %}<section class="auth-card"><span class="eyebrow">ACESSO COM GOOGLE</span><h1>Não foi possível continuar</h1><p class="lead">O acesso foi cancelado ou não pôde ser confirmado. Nenhuma conta foi criada.</p><a class="button button-primary full" href="{% url 'accounts:login' %}">Tentar novamente</a></section>{% endblock %}

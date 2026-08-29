@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% load static %}
+{% block title %}Completar cadastro — AMPARO{% endblock %}
+{% block main_class %}auth-shell{% endblock %}
+{% block app_header %}{% endblock %}
+{% block bottom_navigation %}{% endblock %}
+{% block content %}
+<section class="auth-card auth-card-wide">
+  <div class="brand auth-brand"><img class="brand-logo" src="{% static 'brand/logo-mark.svg' %}" alt="" width="48" height="48"><span class="brand-copy"><strong>AMPARO</strong><small>Tecnologia para cuidar</small></span></div>
+  <span class="eyebrow">ÚLTIMO PASSO</span>
+  <h1>Complete seu cadastro</h1>
+  <p class="lead">O Google confirmou seu e-mail. Agora precisamos apenas das informações essenciais para cuidar da sua experiência.</p>
+  <div class="verified-email"><span>E-mail confirmado</span><strong>{{ request.user.email }}</strong></div>
+  <form method="post" class="stack-form form-grid" novalidate>
+    {% csrf_token %}{{ form.non_field_errors }}
+    {% for field in form %}<div class="field {% if field.name == 'consent' or field.name == 'large_text' %}field-check full-row{% endif %}"><label for="{{ field.id_for_label }}">{% if field.name == 'consent' or field.name == 'large_text' %}{{ field }}{% endif %}{{ field.label }}</label>{% if field.name != 'consent' and field.name != 'large_text' %}{{ field }}{% endif %}{{ field.errors }}{% if field.help_text %}<small>{{ field.help_text|safe }}</small>{% endif %}</div>{% endfor %}
+    <button class="button button-primary full full-row" type="submit">Concluir e ver os planos</button>
+  </form>
+  <p class="muted-note">Criar uma senha é opcional. Você sempre poderá entrar novamente com sua conta Google.</p>
+</section>
+{% endblock %}

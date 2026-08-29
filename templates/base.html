@@ -1,0 +1,74 @@
+{% load static %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B3B69">
+  <meta name="color-scheme" content="light">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="AMPARO">
+  <meta name="description" content="AMPARO — educação e inclusão financeira com segurança e acessibilidade.">
+  <title>{% block title %}AMPARO{% endblock %}</title>
+  <link rel="icon" href="{% static 'brand/logo-mark.svg' %}" type="image/svg+xml">
+  <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
+  <link rel="stylesheet" href="{% static 'css/amparo.css' %}?v=9">
+</head>
+<body class="{% if user.is_authenticated and user.large_text %}large-text{% endif %}">
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <div class="visually-hidden" aria-live="polite" aria-atomic="true" data-accessibility-status></div>
+  <div class="background-orb orb-a" aria-hidden="true"></div>
+  <div class="background-orb orb-b" aria-hidden="true"></div>
+
+  {% block app_header %}{% if user.is_authenticated %}
+  <header class="app-header">
+    <a class="brand" href="{% url 'dashboard' %}" aria-label="AMPARO — início">
+      <img class="brand-logo" src="{% static 'brand/logo-mark.svg' %}" alt="" width="48" height="48">
+      <span class="brand-copy"><strong>AMPARO</strong><small>Tecnologia para cuidar</small></span>
+    </a>
+    <div class="header-actions">
+      <span class="demo-badge">Ambiente demonstrativo</span>
+      <button class="header-tool" type="button" data-font-toggle aria-label="Aumentar tamanho do texto" title="Aumentar texto">{% include 'components/icon.html' with name='text' %}<span>Texto</span></button>
+      <button class="header-tool contrast-tool" type="button" data-contrast-toggle aria-label="Ativar alto contraste" title="Alto contraste">{% include 'components/icon.html' with name='contrast' %}<span>Contraste</span></button>
+      <a class="avatar" href="{% url 'accounts:profile' %}" aria-label="Abrir meu perfil">{{ user.first_name_display|first }}</a>
+    </div>
+  </header>
+  {% endif %}{% endblock %}
+
+  {% if messages %}
+  <div class="messages" aria-live="polite">
+    {% for message in messages %}<div class="flash {{ message.tags }}">{{ message }}</div>{% endfor %}
+  </div>
+  {% endif %}
+
+  <main id="conteudo" class="{% block main_class %}page-shell{% endblock %}">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% block bottom_navigation %}{% if user.is_authenticated %}
+  <nav class="bottom-nav" aria-label="Navegação principal">
+    <a href="{% url 'dashboard' %}" {% if request.resolver_match.url_name == 'dashboard' %}aria-current="page"{% endif %}>{% include 'components/icon.html' with name='home' %}<span>Início</span></a>
+    <a href="{% url 'transactions' %}" {% if request.resolver_match.url_name == 'transactions' %}aria-current="page"{% endif %}>{% include 'components/icon.html' with name='movements' %}<span>Extrato</span></a>
+    <a class="nav-primary" href="{% url 'transfer-create' %}" {% if 'transfer' in request.resolver_match.url_name %}aria-current="page"{% endif %}>{% include 'components/icon.html' with name='transfer' %}<span>Pix</span></a>
+    <a href="{% url 'assistant' %}" {% if request.resolver_match.url_name == 'assistant' %}aria-current="page"{% endif %}>{% include 'components/icon.html' with name='help' %}<span>Ajuda</span></a>
+    <button type="button" data-menu-open aria-haspopup="dialog" aria-controls="more-menu">{% include 'components/icon.html' with name='menu' %}<span>Mais</span></button>
+  </nav>
+
+  <dialog class="more-menu" id="more-menu" aria-labelledby="more-menu-title">
+    <div class="menu-handle" aria-hidden="true"></div>
+    <div class="menu-heading"><div><span class="overline">OUTRAS OPÇÕES</span><h2 id="more-menu-title">O que você procura?</h2></div><button class="icon-button" type="button" data-menu-close aria-label="Fechar menu">{% include 'components/icon.html' with name='close' %}</button></div>
+    <nav class="menu-links" aria-label="Outras opções">
+      <a href="{% url 'accounts:profile' %}">{% include 'components/icon.html' with name='user' %}<span><strong>Meu perfil</strong><small>Dados pessoais e acessibilidade</small></span>{% include 'components/icon.html' with name='chevron' %}</a>
+      <a href="{% url 'accounts:security' %}">{% include 'components/icon.html' with name='security' %}<span><strong>Segurança</strong><small>Alertas e confirmações</small></span>{% include 'components/icon.html' with name='chevron' %}</a>
+      <a href="{% url 'account-detail' %}">{% include 'components/icon.html' with name='account' %}<span><strong>Dados da conta</strong><small>Agência, número e status</small></span>{% include 'components/icon.html' with name='chevron' %}</a>
+      <a href="{% url 'card-detail' %}">{% include 'components/icon.html' with name='card' %}<span><strong>Cartão AMPARO</strong><small>Solicitação demonstrativa</small></span>{% include 'components/icon.html' with name='chevron' %}</a>
+      <a href="{% url 'privacy' %}">{% include 'components/icon.html' with name='privacy' %}<span><strong>Privacidade</strong><small>Seus dados e eventos</small></span>{% include 'components/icon.html' with name='chevron' %}</a>
+      <a href="{% url 'subscriptions:plans' %}">{% include 'components/icon.html' with name='plans' %}<span><strong>Planos</strong><small>Gratuito e opções premium</small></span>{% include 'components/icon.html' with name='chevron' %}</a>
+    </nav>
+  </dialog>
+  {% endif %}{% endblock %}
+  <script src="{% static 'js/amparo.js' %}?v=9" defer></script>
+</body>
+</html>

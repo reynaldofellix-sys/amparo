@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% load amparo_format %}
+{% block title %}Revisar transferência — AMPARO{% endblock %}
+{% block content %}
+<div class="page-title narrow-title"><div><a class="back-link" href="{% url 'transfer-create' %}">← Corrigir dados</a><span class="eyebrow">ÚLTIMA CONFERÊNCIA</span><h1>Está tudo certo?</h1><p>Leia cada informação antes de confirmar.</p></div></div>
+<section class="review-card"><div class="review-mark">✓</div><dl><div><dt>Destinatário</dt><dd>{{ transfer.recipient_name }}</dd></div><div><dt>Chave Pix</dt><dd>{{ transfer.pix_key }}</dd></div><div class="review-total"><dt>Valor demonstrativo</dt><dd>{{ transfer.amount|brl }}</dd></div></dl><div class="warning-box"><strong>Ambiente demonstrativo</strong><p>Esta confirmação registra apenas uma simulação no ledger acadêmico.</p></div><div class="review-actions"><form method="post" action="{% url 'transfer-cancel' transfer.pk %}">{% csrf_token %}<button class="button button-ghost" type="submit">Cancelar</button></form><form method="post" action="{% url 'transfer-confirm' transfer.pk %}" data-single-submit>{% csrf_token %}<button class="button button-primary" type="submit">Confirmar com segurança</button></form></div></section>
+{% endblock %}

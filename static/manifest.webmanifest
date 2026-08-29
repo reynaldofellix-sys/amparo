@@ -1,0 +1,17 @@
+{
+  "name": "AMPARO — Tecnologia para cuidar",
+  "short_name": "AMPARO",
+  "description": "Experiência financeira acessível e demonstrativa.",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FBFAF5",
+  "theme_color": "#0B3B69",
+  "categories": ["finance", "education", "accessibility"],
+  "icons": [
+    {"src": "/static/brand/logo-mark.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"},
+    {"src": "/static/brand/icon-maskable.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable"}
+  ]
+}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% load static %}
+{% block title %}Sem conexão — AMPARO{% endblock %}
+{% block app_header %}{% endblock %}
+{% block bottom_navigation %}{% endblock %}
+{% block content %}
+<section class="offline-card">
+  <img src="{% static 'brand/logo-mark.svg' %}" alt="" width="72" height="72">
+  <h1>Você está sem conexão</h1>
+  <p>Por segurança, informações da conta não ficam guardadas neste aparelho. Conecte-se à internet e tente novamente.</p>
+  <button class="button button-primary full" type="button" onclick="window.location.reload()">Tentar novamente</button>
+</section>
+{% endblock %}

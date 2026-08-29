@@ -72,4 +72,4 @@ static/                 CSS e JavaScript progressivamente aprimorado
 docs/                   proposta, arquitetura e evolução do produto
 ```
 
-Leia [a proposta](docs/PROPOSTA.md), [a arquitetura](docs/ARQUITETURA.md), [a identidade visual](docs/IDENTIDADE_VISUAL.md), [a preparação mobile](docs/APP_MOBILE.md), [a autenticação e os planos](docs/AUTENTICACAO_E_PLANOS.md) e [o roadmap](docs/ROADMAP.md) antes de ampliar o sistema.
+Leia [a proposta](docs/PROPOSTA.md), [a arquitetura](docs/ARQUITETURA.md), [a identidade visual](docs/IDENTIDADE_VISUAL.md), [a preparação mobile](docs/APP_MOBILE.md), [a autenticação e os planos](docs/AUTENTICACAO_E_PLANOS.md), [a operação em produção](docs/producao.md) e [o roadmap](docs/ROADMAP.md) antes de ampliar o sistema.

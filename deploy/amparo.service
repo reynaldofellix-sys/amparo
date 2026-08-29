@@ -1,0 +1,32 @@
+[Unit]
+Description=AMPARO Django application
+After=network.target postgresql.service redis-server.service
+Wants=postgresql.service redis-server.service
+
+[Service]
+Type=notify
+User=amparo
+Group=www-data
+WorkingDirectory=/var/www/apps/amparo/current
+EnvironmentFile=/var/www/apps/amparo/shared/.env
+ExecStart=/var/www/apps/amparo/venv/bin/gunicorn \
+    --workers 3 \
+    --bind 127.0.0.1:8050 \
+    --timeout 60 \
+    --graceful-timeout 30 \
+    --access-logfile /var/www/apps/amparo/shared/logs/gunicorn-access.log \
+    --error-logfile /var/www/apps/amparo/shared/logs/gunicorn-error.log \
+    amparo.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+KillSignal=SIGQUIT
+TimeoutStopSec=35
+Restart=on-failure
+RestartSec=5
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=/var/www/apps/amparo/shared
+
+[Install]
+WantedBy=multi-user.target

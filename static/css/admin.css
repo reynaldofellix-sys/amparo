@@ -1,0 +1,90 @@
+:root {
+  --amparo-navy: #0b3b69;
+  --amparo-blue: #1259a7;
+  --amparo-green: #087f5b;
+  --amparo-amber: #f3b33d;
+  --amparo-canvas: #f5f8fb;
+  --amparo-line: #d7e2eb;
+  --amparo-ink: #172b3e;
+}
+
+html[data-theme="light"], :root {
+  --primary: var(--amparo-navy);
+  --secondary: var(--amparo-blue);
+  --accent: var(--amparo-amber);
+  --header-bg: #082f54;
+  --header-color: #fff;
+  --breadcrumbs-bg: #0e4b80;
+  --link-fg: #0f5797;
+  --link-hover-color: #07345e;
+  --button-bg: var(--amparo-blue);
+  --button-hover-bg: var(--amparo-navy);
+  --default-button-bg: var(--amparo-green);
+  --default-button-hover-bg: #056448;
+}
+
+body { font-family: Verdana, "Segoe UI", Arial, sans-serif; }
+#header { min-height: 4.5rem; padding: .65rem clamp(1rem, 3vw, 2rem); box-shadow: 0 5px 20px rgba(5, 32, 57, .18); }
+#branding { display: flex; align-items: center; }
+.amparo-admin-brand { display: flex; align-items: center; gap: .75rem; color: #fff !important; text-decoration: none; }
+.amparo-admin-brand img { flex: 0 0 auto; filter: drop-shadow(0 3px 7px rgba(0, 0, 0, .2)); }
+.amparo-admin-brand span, .amparo-admin-brand strong, .amparo-admin-brand small { display: block; }
+.amparo-admin-brand strong { font-size: 1.05rem; letter-spacing: .13em; line-height: 1.2; }
+.amparo-admin-brand small { margin-top: .12rem; color: #d8eafd; font-size: .72rem; font-weight: 700; }
+.amparo-view-site { min-height: 2.75rem; padding: .5rem .9rem; display: inline-flex; align-items: center; color: #fff !important; border: 1px solid rgba(255,255,255,.6); border-radius: 999px; font-weight: 700; text-decoration: none; }
+.amparo-view-site:hover { background: rgba(255,255,255,.12); }
+.breadcrumbs { padding: .75rem clamp(1rem, 3vw, 2rem) !important; }
+#content { padding: clamp(1rem, 3vw, 2rem); }
+#content-main { min-width: 0; }
+
+.amparo-admin-intro { margin-bottom: 1.25rem; padding: clamp(1.2rem, 3vw, 2rem); display: flex; align-items: center; justify-content: space-between; gap: 1.25rem; color: #fff; background: linear-gradient(135deg, #082f54, #1268ad); border-radius: 1.25rem; box-shadow: 0 16px 38px rgba(11,59,105,.18); }
+.amparo-admin-intro h1 { margin: .35rem 0; color: #fff; font-size: clamp(1.55rem, 4vw, 2.25rem); }
+.amparo-admin-intro p { max-width: 45rem; margin: 0; color: #dceeff; font-size: .9rem; }
+.amparo-admin-eyebrow { color: #ffd071; font-size: .7rem; font-weight: 800; letter-spacing: .11em; }
+.amparo-admin-primary { min-height: 3rem; padding: .7rem 1rem; display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; color: #092f52 !important; background: #ffd071; border-radius: .8rem; font-weight: 800; text-decoration: none; }
+
+.amparo-metrics { margin-bottom: 1.5rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .85rem; }
+.amparo-metrics article { min-height: 7.6rem; padding: 1rem; display: flex; flex-direction: column; justify-content: center; background: var(--body-bg); border: 1px solid var(--hairline-color); border-radius: 1rem; box-shadow: 0 5px 18px rgba(11,59,105,.07); }
+.amparo-metrics span, .amparo-metrics small { color: var(--body-quiet-color); }
+.amparo-metrics span { font-size: .72rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.amparo-metrics strong { margin: .25rem 0; color: var(--body-fg); font-size: clamp(1.45rem, 3vw, 2rem); line-height: 1.15; }
+.amparo-metrics small { font-size: .75rem; }
+.amparo-metrics .metric-alert { border-color: #cf4562; }
+.amparo-metrics .metric-alert strong { color: #bd2545; }
+.amparo-admin-section-title { margin: 1.5rem 0 .75rem; }
+.amparo-admin-section-title h2 { margin: 0 0 .25rem; font-size: 1.15rem; }
+.amparo-admin-section-title p { margin: 0; color: var(--body-quiet-color); }
+.amparo-login-heading { margin-bottom: 1rem; }
+.amparo-login-heading h1 { margin: .35rem 0; color: var(--body-fg); font-size: 1.5rem; }
+.amparo-login-heading p { margin: 0; color: var(--body-quiet-color); line-height: 1.55; }
+.login #container { width: min(calc(100% - 2rem), 30rem); border-radius: 1rem; }
+.login #content { padding: 1.5rem; }
+.login .form-row #id_username, .login .form-row #id_password { min-height: 48px; }
+.login .submit-row input { min-height: 3.15rem; padding: .65rem 1rem; font-weight: 800; }
+
+.module { overflow: hidden; border-radius: .85rem; }
+.module caption, .inline-group h2 { padding: .75rem 1rem; }
+#changelist-filter { border-radius: .85rem; }
+.status-pill { padding: .3rem .55rem; display: inline-flex; border-radius: 999px; background: #e8eef3; font-size: .72rem; font-weight: 800; line-height: 1; white-space: nowrap; }
+.status-active, .status-completed, .status-approved, .status-issued, .status-processed { color: #075b43; background: #dff6ed; }
+.status-pending, .status-requested, .status-in_review, .status-received, .status-past_due { color: #7b4b00; background: #fff0c7; }
+.status-blocked, .status-closed, .status-cancelled, .status-failed, .status-expired { color: #9b1b35; background: #ffe4e9; }
+.status-paused, .status-ignored { color: #394f61; background: #e6edf2; }
+.json-preview { max-width: min(70vw, 60rem); max-height: 24rem; padding: 1rem; overflow: auto; color: var(--body-fg); background: var(--darkened-bg); border-radius: .65rem; font: .8rem/1.55 Consolas, monospace; white-space: pre-wrap; }
+
+@media (max-width: 900px) {
+  .amparo-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  #header { align-items: flex-start; }
+  .amparo-admin-brand small, .amparo-view-site { display: none; }
+  .amparo-admin-intro { align-items: stretch; flex-direction: column; }
+  .amparo-admin-primary { width: 100%; }
+  .amparo-metrics { grid-template-columns: 1fr; }
+  .amparo-metrics article { min-height: 6.5rem; }
+  #content { padding: .8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+}

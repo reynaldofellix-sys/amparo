@@ -27,6 +27,8 @@ class AuditEvent(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+        verbose_name = "evento de auditoria"
+        verbose_name_plural = "eventos de auditoria"
         indexes = [models.Index(fields=["actor", "-created_at"])]
 
     def __str__(self):
@@ -42,6 +44,8 @@ class AssistantMessage(TimeStampedModel):
 
     class Meta:
         ordering = ["created_at"]
+        verbose_name = "mensagem do assistente"
+        verbose_name_plural = "mensagens do assistente"
         indexes = [models.Index(fields=["user", "created_at"])]
 
     def __str__(self):

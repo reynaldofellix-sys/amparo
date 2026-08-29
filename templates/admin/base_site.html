@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} · {% endif %}{{ title }} · AMPARO{% endblock %}
+
+{% block extrastyle %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'css/admin.css' %}?v=3">
+{% endblock %}
+
+{% block branding %}
+  <a class="amparo-admin-brand" href="{% url 'admin:index' %}">
+    <img src="{% static 'brand/logo-mark.svg' %}" width="42" height="42" alt="">
+    <span><strong>AMPARO</strong><small>Central de administração</small></span>
+  </a>
+{% endblock %}
+
+{% block nav-global %}
+  <a class="amparo-view-site" href="/">Ver plataforma</a>
+{% endblock %}

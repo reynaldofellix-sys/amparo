@@ -31,6 +31,8 @@ class User(AbstractUser):
 
     class Meta:
         ordering = ["full_name", "email"]
+        verbose_name = "pessoa"
+        verbose_name_plural = "pessoas"
 
     def __str__(self):
         return self.full_name or self.email

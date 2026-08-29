@@ -30,6 +30,8 @@ class Plan(TimeStampedModel):
 
     class Meta:
         ordering = ["sort_order", "price", "name"]
+        verbose_name = "plano"
+        verbose_name_plural = "planos"
         constraints = [
             models.CheckConstraint(condition=models.Q(price__gte=0), name="plan_price_nonnegative")
         ]
@@ -75,6 +77,8 @@ class Subscription(TimeStampedModel):
 
     class Meta:
         ordering = ["-created_at"]
+        verbose_name = "assinatura"
+        verbose_name_plural = "assinaturas"
         indexes = [
             models.Index(fields=["user", "status"]),
             models.Index(fields=["provider", "provider_subscription_id"]),
@@ -121,6 +125,8 @@ class PaymentWebhookEvent(models.Model):
 
     class Meta:
         ordering = ["-received_at"]
+        verbose_name = "evento de pagamento"
+        verbose_name_plural = "eventos de pagamento"
         constraints = [
             models.UniqueConstraint(
                 fields=["provider", "event_id"], name="unique_payment_webhook_event"

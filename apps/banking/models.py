@@ -29,6 +29,8 @@ class FinancialAccount(TimeStampedModel):
     currency = models.CharField(max_length=3, default="BRL")
 
     class Meta:
+        verbose_name = "conta demonstrativa"
+        verbose_name_plural = "contas demonstrativas"
         indexes = [models.Index(fields=["status", "created_at"])]
         constraints = [
             models.CheckConstraint(
@@ -61,6 +63,8 @@ class LedgerEntry(models.Model):
 
     class Meta:
         ordering = ["-occurred_at", "-id"]
+        verbose_name = "lançamento financeiro"
+        verbose_name_plural = "lançamentos financeiros"
         constraints = [
             models.UniqueConstraint(
                 fields=["account", "reference"], name="unique_ledger_reference"
@@ -100,6 +104,8 @@ class Transfer(TimeStampedModel):
 
     class Meta:
         ordering = ["-created_at"]
+        verbose_name = "transferência Pix"
+        verbose_name_plural = "transferências Pix"
         indexes = [
             models.Index(fields=["account", "-created_at"]),
             models.Index(fields=["status", "created_at"]),
@@ -128,6 +134,10 @@ class PaymentCard(TimeStampedModel):
     )
     status = models.CharField(max_length=16, choices=Status.choices, default=Status.REQUESTED)
     last_four = models.CharField(max_length=4, blank=True)
+
+    class Meta:
+        verbose_name = "cartão demonstrativo"
+        verbose_name_plural = "cartões demonstrativos"
 
     def __str__(self):
         return f"Cartão de {self.account.owner} — {self.get_status_display()}"

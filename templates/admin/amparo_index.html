@@ -1,0 +1,27 @@
+{% extends "admin/index.html" %}
+
+{% block content %}
+  <section class="amparo-admin-intro" aria-labelledby="operation-title">
+    <div>
+      <span class="amparo-admin-eyebrow">OPERAÇÃO EM TEMPO REAL</span>
+      <h1 id="operation-title">Visão geral do AMPARO</h1>
+      <p>Gerencie pessoas, contas demonstrativas, assinaturas e eventos de segurança.</p>
+    </div>
+    <a class="amparo-admin-primary" href="{% url 'admin:accounts_user_add' %}">Adicionar pessoa</a>
+  </section>
+
+  <section class="amparo-metrics" aria-label="Indicadores operacionais">
+    <article><span>Pessoas cadastradas</span><strong>{{ amparo_metrics.users }}</strong><small>{{ amparo_metrics.active_users }} ativas</small></article>
+    <article><span>Saldo demonstrativo</span><strong>R$ {{ amparo_metrics.demo_balance|floatformat:2 }}</strong><small>Somatório das contas</small></article>
+    <article><span>Pix aguardando</span><strong>{{ amparo_metrics.pending_transfers }}</strong><small>Pendentes de confirmação</small></article>
+    <article><span>Assinaturas ativas</span><strong>{{ amparo_metrics.active_subscriptions }}</strong><small>Todos os provedores</small></article>
+    <article><span>Eventos em 24 horas</span><strong>{{ amparo_metrics.audit_events_24h }}</strong><small>Trilha de auditoria</small></article>
+    <article class="{% if amparo_metrics.failed_webhooks %}metric-alert{% endif %}"><span>Falhas de pagamento</span><strong>{{ amparo_metrics.failed_webhooks }}</strong><small>Webhooks para revisar</small></article>
+  </section>
+
+  <div class="amparo-admin-section-title">
+    <h2>Áreas de administração</h2>
+    <p>Os registros de auditoria e movimentações financeiras são protegidos contra alterações.</p>
+  </div>
+  {{ block.super }}
+{% endblock %}

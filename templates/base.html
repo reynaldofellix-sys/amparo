@@ -15,7 +15,7 @@
   <link rel="icon" href="{% static 'brand/logo-mark.svg' %}" type="image/svg+xml">
   <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
   <script>try{if(localStorage.getItem("amparo-theme")==="dark")document.documentElement.dataset.theme="dark";const s=localStorage.getItem("amparo-font-size");if(s&&s!=="normal")document.documentElement.dataset.fontSize=s}catch(e){}</script>
-  <link rel="stylesheet" href="{% static 'css/amparo.css' %}?v=13">
+  <link rel="stylesheet" href="{% static 'css/amparo.css' %}?v=14">
 </head>
 <body class="{% if user.is_authenticated %}has-bottom-nav {% endif %}{% if user.is_authenticated and user.large_text %}large-text{% endif %}">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -72,9 +72,10 @@
       <a href="{% url 'card-detail' %}">{% include 'components/icon.html' with name='card' %}<span><strong>Cartão AMPARO</strong><small>Solicitação demonstrativa</small></span>{% include 'components/icon.html' with name='chevron' %}</a>
       <a href="{% url 'privacy' %}">{% include 'components/icon.html' with name='privacy' %}<span><strong>Privacidade</strong><small>Seus dados e eventos</small></span>{% include 'components/icon.html' with name='chevron' %}</a>
       <a href="{% url 'subscriptions:plans' %}">{% include 'components/icon.html' with name='plans' %}<span><strong>Planos</strong><small>Gratuito e opções premium</small></span>{% include 'components/icon.html' with name='chevron' %}</a>
+      <form class="menu-logout" method="post" action="{% url 'accounts:logout' %}">{% csrf_token %}<button class="menu-logout-button" type="submit">{% include 'components/icon.html' with name='logout' %}<span><strong>Sair da conta</strong><small>Encerrar este acesso com segurança</small></span>{% include 'components/icon.html' with name='chevron' %}</button></form>
     </nav>
   </dialog>
   {% endif %}{% endblock %}
-  <script src="{% static 'js/amparo.js' %}?v=13" defer></script>
+  <script src="{% static 'js/amparo.js' %}?v=14" defer></script>
 </body>
 </html>

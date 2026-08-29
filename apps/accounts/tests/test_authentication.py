@@ -52,3 +52,15 @@ class AuthenticationTests(TestCase):
             {"email": "limite@example.com", "password": "UmaSenhaForte2026!"},
         )
         self.assertContains(response, "Muitas tentativas", status_code=200)
+
+    def test_logout_requires_post_and_ends_session(self):
+        user = User.objects.create_user(
+            email="sair@example.com", password="UmaSenhaForte2026!", full_name="Conta Segura"
+        )
+        self.client.force_login(user)
+
+        self.assertEqual(self.client.get(reverse("accounts:logout")).status_code, 405)
+        response = self.client.post(reverse("accounts:logout"))
+
+        self.assertRedirects(response, reverse("landing"))
+        self.assertNotIn("_auth_user_id", self.client.session)

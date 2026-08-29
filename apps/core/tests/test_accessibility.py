@@ -44,6 +44,8 @@ class AccessibleInterfaceSmokeTests(TestCase):
                 self.assertEqual(response.status_code, 200)
                 self.assertContains(response, "Navegação principal")
                 self.assertContains(response, "data-menu-open")
+                self.assertContains(response, reverse("accounts:logout"))
+                self.assertContains(response, "Sair da conta")
 
     def test_current_page_is_exposed_to_assistive_technology(self):
         self.client.force_login(self.user)

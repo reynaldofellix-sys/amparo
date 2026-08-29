@@ -42,12 +42,16 @@ DJANGO_CSRF_TRUSTED_ORIGINS=https://amparo.nabio.pro
 DJANGO_SECURE_SSL_REDIRECT=true
 DJANGO_SECURE_HSTS_SECONDS=31536000
 DATABASE_URL=postgresql://amparo_app:SENHA@127.0.0.1:5432/amparo_prod
-DATABASE_CONN_MAX_AGE=60
+DATABASE_CONN_MAX_AGE=0
+DATABASE_POOL=true
 REDIS_URL=redis://127.0.0.1:6379/10
 CACHE_URL=redis://127.0.0.1:6379/11
 PUBLIC_BASE_URL=https://amparo.nabio.pro
 PAYMENT_PROVIDER=mercado_pago
 ```
+
+Ao usar o pool nativo do `psycopg`, mantenha `DATABASE_CONN_MAX_AGE=0`: o pool já gerencia o
+reaproveitamento das conexões e não pode ser combinado com conexões persistentes do Django.
 
 Google OAuth e Mercado Pago permanecem desativados até que suas credenciais reais sejam
 adicionadas no `.env`. Nunca coloque segredos no Git ou na unidade systemd.

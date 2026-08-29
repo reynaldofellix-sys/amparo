@@ -1,9 +1,9 @@
 {% load static %}
-const CACHE_NAME = "amparo-shell-v13";
+const CACHE_NAME = "amparo-shell-v14";
 const SAFE_ASSETS = [
   "{% url 'offline' %}",
-  "{% static 'css/amparo.css' %}?v=13",
-  "{% static 'js/amparo.js' %}?v=13",
+  "{% static 'css/amparo.css' %}?v=14",
+  "{% static 'js/amparo.js' %}?v=14",
   "{% static 'brand/logo-mark.svg' %}",
   "{% static 'icons/sprite.svg' %}"
 ];

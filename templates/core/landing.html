@@ -1,52 +1,122 @@
 {% extends "base.html" %}{% load static %}
-{% block title %}AMPARO — Tecnologia para cuidar{% endblock %}
+{% block title %}AMPARO — Tecnologia que respeita o seu tempo{% endblock %}
 {% block main_class %}landing-shell{% endblock %}
 {% block app_header %}{% endblock %}
 {% block bottom_navigation %}{% endblock %}
 {% block content %}
-<header class="public-header">
+<header class="public-header landing-header">
   <a class="brand" href="{% url 'landing' %}" aria-label="AMPARO — página inicial">
     <img class="brand-logo" src="{% static 'brand/logo-mark.svg' %}" alt="" width="48" height="48">
     <span class="brand-copy"><strong>AMPARO</strong><small>Tecnologia para cuidar</small></span>
   </a>
+  <nav class="landing-nav" aria-label="Navegação da página inicial">
+    <a href="#diferenciais">Por que AMPARO</a>
+    <a href="#como-funciona">Como funciona</a>
+    <a href="{% url 'subscriptions:plans' %}">Planos</a>
+  </nav>
   <div class="public-actions">
-    {% if user.is_authenticated %}<a class="button button-ghost compact" href="{% url 'dashboard' %}">Minha conta</a>{% else %}<a class="button button-ghost compact" href="{% url 'accounts:login' %}">Entrar</a>{% endif %}
+    {% if user.is_authenticated %}<a class="button button-primary compact" href="{% url 'dashboard' %}">Minha conta</a>{% else %}<a class="button button-ghost compact" href="{% url 'accounts:login' %}">Entrar</a>{% endif %}
   </div>
 </header>
 
-<section class="hero">
+<section class="hero landing-hero">
   <div class="hero-copy">
-    <span class="overline">SIMPLES, SEGURO E ACESSÍVEL</span>
-    <h1>Seu dinheiro,<br><span>sem complicação.</span></h1>
-    <p>O AMPARO ajuda você a entender cada passo, conferir tudo com calma e cuidar da sua vida financeira com mais confiança.</p>
+    <span class="hero-kicker"><i aria-hidden="true"></i> Tecnologia que respeita o seu tempo</span>
+    <h1>Seu dinheiro.<br><span>Seu ritmo.</span><br>Sua autonomia.</h1>
+    <p>O AMPARO transforma tarefas financeiras em passos claros, seguros e tranquilos — com letras grandes, orientação acessível e tempo para conferir.</p>
     <div class="hero-actions">
-      {% if user.is_authenticated %}<a class="button button-primary" href="{% url 'dashboard' %}">Abrir minha conta <span>→</span></a>{% else %}<a class="button button-primary" href="{% url 'accounts:register' %}">Criar conta demonstrativa <span>→</span></a><a class="button button-ghost" href="{% url 'accounts:login' %}">Já tenho uma conta</a>{% endif %}<a class="button button-quiet" href="{% url 'subscriptions:plans' %}">Conhecer os planos</a>
+      {% if user.is_authenticated %}
+        <a class="button button-primary" href="{% url 'dashboard' %}">Abrir minha conta {% include 'components/icon.html' with name='chevron' %}</a>
+      {% else %}
+        <a class="button button-primary" href="{% url 'accounts:register' %}">Experimentar o AMPARO {% include 'components/icon.html' with name='chevron' %}</a>
+        <a class="button button-ghost" href="{% url 'accounts:login' %}">Já tenho uma conta</a>
+      {% endif %}
     </div>
-    <div class="trust-list" aria-label="Diferenciais do AMPARO">
-      <span>{% include 'components/icon.html' with name='check' %} Letras grandes</span>
-      <span>{% include 'components/icon.html' with name='check' %} Linguagem simples</span>
-      <span>{% include 'components/icon.html' with name='check' %} Você confere antes</span>
+    <a class="hero-plan-link" href="{% url 'subscriptions:plans' %}">Conheça os planos com calma <span aria-hidden="true">→</span></a>
+    <div class="trust-list" aria-label="Compromissos do AMPARO">
+      <span>{% include 'components/icon.html' with name='check' %} Fácil de enxergar</span>
+      <span>{% include 'components/icon.html' with name='check' %} Fácil de entender</span>
+      <span>{% include 'components/icon.html' with name='check' %} Seguro para revisar</span>
     </div>
   </div>
-  <div class="hero-visual" aria-label="Prévia da conta AMPARO">
+
+  <div class="hero-visual amparo-experience" aria-label="Prévia da experiência AMPARO">
+    <div class="experience-halo" aria-hidden="true"></div>
+    <div class="floating-note note-text">{% include 'components/icon.html' with name='text' %}<span><strong>Texto confortável</strong><small>Você escolhe o tamanho</small></span></div>
+    <div class="floating-note note-security">{% include 'components/icon.html' with name='security' %}<span><strong>Revise com calma</strong><small>Antes de confirmar</small></span></div>
     <div class="preview-card">
-      <div class="preview-top"><span>Conta AMPARO</span><span class="status-dot">● Protegida</span></div>
+      <div class="preview-top"><span>Minha conta</span><span class="status-dot">● Protegida</span></div>
       <small>Saldo demonstrativo</small>
       <strong>R$ 1.250,00</strong>
       <div class="preview-actions">
         <span>{% include 'components/icon.html' with name='transfer' %}<small>Transferir</small></span>
         <span>{% include 'components/icon.html' with name='movements' %}<small>Movimentos</small></span>
-        <span>{% include 'components/icon.html' with name='help' %}<small>Ajuda</small></span>
+        <span>{% include 'components/icon.html' with name='help' %}<small>Pedir ajuda</small></span>
       </div>
-      <div class="preview-activity"><i></i><div><b>Você confere antes</b><small>Nome, chave e valor</small></div><em>✓</em></div>
+      <div class="preview-activity"><i></i><div><b>Tudo certo para continuar</b><small>Nome, chave e valor conferidos</small></div><em>✓</em></div>
     </div>
+    <div class="experience-caption"><span aria-hidden="true">✦</span><p><strong>Feito com pessoas idosas, não apenas para elas.</strong><small>Clareza e autonomia em cada detalhe.</small></p></div>
   </div>
 </section>
 
-<section class="feature-strip" aria-label="Recursos de acessibilidade">
-  <article><span>01</span><h2>Feito para enxergar bem</h2><p>Texto grande, alto contraste e botões fáceis de tocar.</p></article>
-  <article><span>02</span><h2>Tempo para conferir</h2><p>Nada de pressa: você revisa os dados antes de continuar.</p></article>
-  <article><span>03</span><h2>Ajuda que fala a sua língua</h2><p>Orientações claras sobre Pix, golpes, saldo e segurança.</p></article>
+<section class="confidence-ribbon" aria-label="Diferenciais em números">
+  <article><strong>4</strong><span>controles visuais sempre ao alcance</span></article>
+  <article><strong>3×</strong><span>mais oportunidades de conferir</span></article>
+  <article><strong>0</strong><span>dinheiro real no ambiente demonstrativo</span></article>
+</section>
+
+<section class="landing-section" id="diferenciais">
+  <div class="landing-section-heading">
+    <span class="overline">UMA NOVA RELAÇÃO COM A TECNOLOGIA</span>
+    <h2>Menos ansiedade.<br><span>Mais confiança.</span></h2>
+    <p>Não simplificamos apenas a tela. Simplificamos a decisão para que cada pessoa continue no controle.</p>
+  </div>
+  <div class="benefit-bento">
+    <article class="bento-card bento-featured">
+      <span class="bento-icon">{% include 'components/icon.html' with name='eye' %}</span>
+      <span class="overline">ENXERGAR</span>
+      <h3>Uma interface que se adapta a você.</h3>
+      <p>Aumente ou diminua o texto, escolha modo claro ou escuro e ative alto contraste a qualquer momento.</p>
+      <div class="type-sample" aria-hidden="true"><span>A</span><span>A</span><span>A</span></div>
+    </article>
+    <article class="bento-card">
+      <span class="bento-icon">{% include 'components/icon.html' with name='security' %}</span>
+      <span class="overline">CONFERIR</span>
+      <h3>Sem pressa e sem letras miúdas.</h3>
+      <p>Destinatário, chave e valor aparecem com clareza antes de cada confirmação.</p>
+    </article>
+    <article class="bento-card bento-help">
+      <span class="bento-icon">{% include 'components/icon.html' with name='help' %}</span>
+      <span class="overline">ENTENDER</span>
+      <h3>Ajuda em linguagem humana.</h3>
+      <p>Explicações diretas sobre Pix, golpes, saldo, cartão e segurança.</p>
+      <span class="conversation-sample">“Pode explicar de outro jeito?”</span>
+    </article>
+  </div>
+</section>
+
+<section class="journey-section" id="como-funciona">
+  <div class="journey-intro">
+    <span class="overline">SIMPLES DESDE O PRIMEIRO TOQUE</span>
+    <h2>Comece no seu ritmo.</h2>
+    <p>Uma jornada curta, acompanhada e sem surpresas.</p>
+  </div>
+  <ol class="journey-steps">
+    <li><span>01</span><div><strong>Crie sua conta</strong><p>Use e-mail e senha. O acesso com Google já está preparado para ativação.</p></div></li>
+    <li><span>02</span><div><strong>Ajuste do seu jeito</strong><p>Escolha tamanho do texto, contraste e preferências de segurança.</p></div></li>
+    <li><span>03</span><div><strong>Explore com tranquilidade</strong><p>Treine os recursos demonstrativos sem movimentar dinheiro real.</p></div></li>
+  </ol>
+</section>
+
+<section class="landing-cta">
+  <div>
+    <span class="overline">O FUTURO TAMBÉM PRECISA ACOLHER</span>
+    <h2>Tecnologia boa é aquela que não deixa ninguém para trás.</h2>
+    <p>Conheça uma experiência financeira criada para dar clareza, segurança e autonomia.</p>
+  </div>
+  <div class="landing-cta-actions">
+    {% if user.is_authenticated %}<a class="button button-primary" href="{% url 'dashboard' %}">Ir para minha conta</a>{% else %}<a class="button button-primary" href="{% url 'accounts:register' %}">Criar conta demonstrativa</a><a class="button button-ghost" href="{% url 'subscriptions:plans' %}">Ver planos</a>{% endif %}
+  </div>
 </section>
 
 <footer class="public-footer"><span>AMPARO · Projeto acadêmico · <a href="{% url 'privacy' %}">Privacidade</a></span><span>Não é uma instituição financeira. Nenhum dinheiro real é movimentado.</span></footer>

@@ -10,6 +10,10 @@ class CoreViewTests(TestCase):
     def test_liveness_and_landing(self):
         landing = self.client.get(reverse("landing"))
         self.assertContains(landing, "Seu dinheiro")
+        self.assertContains(landing, "Seu ritmo")
+        self.assertContains(landing, 'id="diferenciais"')
+        self.assertContains(landing, 'id="como-funciona"')
+        self.assertContains(landing, 'aria-label="Navegação da página inicial"')
         self.assertContains(landing, 'rel="manifest"')
         self.assertContains(landing, "data-font-decrease")
         self.assertContains(landing, "data-font-increase")

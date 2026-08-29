@@ -15,7 +15,7 @@
   <link rel="icon" href="{% static 'brand/logo-mark.svg' %}" type="image/svg+xml">
   <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
   <script>try{if(localStorage.getItem("amparo-theme")==="dark")document.documentElement.dataset.theme="dark";const s=localStorage.getItem("amparo-font-size");if(s&&s!=="normal")document.documentElement.dataset.fontSize=s}catch(e){}</script>
-  <link rel="stylesheet" href="{% static 'css/amparo.css' %}?v=14">
+  <link rel="stylesheet" href="{% static 'css/amparo.css' %}?v=18">
 </head>
 <body class="{% if user.is_authenticated %}has-bottom-nav {% endif %}{% if user.is_authenticated and user.large_text %}large-text{% endif %}">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -76,6 +76,6 @@
     </nav>
   </dialog>
   {% endif %}{% endblock %}
-  <script src="{% static 'js/amparo.js' %}?v=14" defer></script>
+  <script src="{% static 'js/amparo.js' %}?v=15" defer></script>
 </body>
 </html>

@@ -9,9 +9,13 @@
     window.setTimeout(() => { status.textContent = message; }, 30);
   };
 
+  const fontOrder = ["normal", "large", "extra"];
   const savedFont = localStorage.getItem("amparo-font-size");
-  const initialFont = savedFont || (body.classList.contains("large-text") ? "large" : "normal");
-  if (initialFont !== "normal") root.dataset.fontSize = initialFont;
+  const initialFont = fontOrder.includes(savedFont)
+    ? savedFont
+    : (body.classList.contains("large-text") ? "large" : "normal");
+  if (initialFont === "normal") delete root.dataset.fontSize;
+  else root.dataset.fontSize = initialFont;
   body.dataset.fontReady = "true";
 
   const fontLabels = {
@@ -19,27 +23,38 @@
     large: "Texto grande ativado",
     extra: "Texto muito grande ativado",
   };
-  const fontOrder = ["normal", "large", "extra"];
-
   const updateFontButtons = (size) => {
-    document.querySelectorAll("[data-font-toggle]").forEach((button) => {
-      button.setAttribute("aria-pressed", size === "normal" ? "false" : "true");
-      button.setAttribute("aria-label", `${fontLabels[size]}. Pressione para aumentar novamente.`);
-      button.title = fontLabels[size];
+    const index = fontOrder.indexOf(size);
+    document.querySelectorAll("[data-font-decrease]").forEach((button) => {
+      button.disabled = index === 0;
+      button.setAttribute("aria-label", index === 0 ? "Texto já está no menor tamanho" : "Diminuir tamanho do texto");
+    });
+    document.querySelectorAll("[data-font-increase]").forEach((button) => {
+      button.disabled = index === fontOrder.length - 1;
+      button.setAttribute("aria-label", index === fontOrder.length - 1 ? "Texto já está no maior tamanho" : "Aumentar tamanho do texto");
     });
   };
-  updateFontButtons(initialFont);
 
-  document.querySelectorAll("[data-font-toggle]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const current = root.dataset.fontSize || "normal";
-      const next = fontOrder[(fontOrder.indexOf(current) + 1) % fontOrder.length];
-      if (next === "normal") delete root.dataset.fontSize;
-      else root.dataset.fontSize = next;
-      localStorage.setItem("amparo-font-size", next);
-      updateFontButtons(next);
-      announce(fontLabels[next]);
-    });
+  const setFontSize = (size) => {
+    if (size === "normal") delete root.dataset.fontSize;
+    else root.dataset.fontSize = size;
+    localStorage.setItem("amparo-font-size", size);
+    updateFontButtons(size);
+    announce(fontLabels[size]);
+  };
+
+  const changeFontSize = (direction) => {
+    const current = root.dataset.fontSize || "normal";
+    const nextIndex = Math.min(fontOrder.length - 1, Math.max(0, fontOrder.indexOf(current) + direction));
+    setFontSize(fontOrder[nextIndex]);
+  };
+
+  updateFontButtons(initialFont);
+  document.querySelectorAll("[data-font-decrease]").forEach((button) => {
+    button.addEventListener("click", () => changeFontSize(-1));
+  });
+  document.querySelectorAll("[data-font-increase]").forEach((button) => {
+    button.addEventListener("click", () => changeFontSize(1));
   });
 
   document.querySelectorAll("form").forEach((form) => {
@@ -48,6 +63,33 @@
     form.addEventListener("submit", () => {
       const size = largeTextPreference.checked ? "large" : "normal";
       localStorage.setItem("amparo-font-size", size);
+    });
+  });
+
+  const savedTheme = localStorage.getItem("amparo-theme") === "dark" ? "dark" : "light";
+  const themeColor = document.querySelector("[data-theme-color]");
+  const updateThemeButtons = (theme) => {
+    const dark = theme === "dark";
+    document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+      button.setAttribute("aria-pressed", String(dark));
+      button.setAttribute("aria-label", dark ? "Ativar modo claro" : "Ativar modo escuro");
+      button.title = dark ? "Modo claro" : "Modo escuro";
+    });
+    if (themeColor) themeColor.content = dark ? "#09131D" : "#0B3B69";
+  };
+
+  if (savedTheme === "dark") root.dataset.theme = "dark";
+  else delete root.dataset.theme;
+  updateThemeButtons(savedTheme);
+
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const next = root.dataset.theme === "dark" ? "light" : "dark";
+      if (next === "dark") root.dataset.theme = "dark";
+      else delete root.dataset.theme;
+      localStorage.setItem("amparo-theme", next);
+      updateThemeButtons(next);
+      announce(next === "dark" ? "Modo escuro ativado" : "Modo claro ativado");
     });
   });
 

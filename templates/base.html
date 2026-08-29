@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0B3B69">
-  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#0B3B69" data-theme-color>
+  <meta name="color-scheme" content="light dark">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -14,13 +14,21 @@
   <title>{% block title %}AMPARO{% endblock %}</title>
   <link rel="icon" href="{% static 'brand/logo-mark.svg' %}" type="image/svg+xml">
   <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
-  <link rel="stylesheet" href="{% static 'css/amparo.css' %}?v=9">
+  <script>try{if(localStorage.getItem("amparo-theme")==="dark")document.documentElement.dataset.theme="dark";const s=localStorage.getItem("amparo-font-size");if(s&&s!=="normal")document.documentElement.dataset.fontSize=s}catch(e){}</script>
+  <link rel="stylesheet" href="{% static 'css/amparo.css' %}?v=13">
 </head>
-<body class="{% if user.is_authenticated and user.large_text %}large-text{% endif %}">
+<body class="{% if user.is_authenticated %}has-bottom-nav {% endif %}{% if user.is_authenticated and user.large_text %}large-text{% endif %}">
   <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
   <div class="visually-hidden" aria-live="polite" aria-atomic="true" data-accessibility-status></div>
   <div class="background-orb orb-a" aria-hidden="true"></div>
   <div class="background-orb orb-b" aria-hidden="true"></div>
+
+  <aside class="accessibility-dock" aria-label="Acessibilidade visual">
+    <button class="accessibility-control" type="button" data-font-decrease aria-label="Diminuir tamanho do texto" title="Diminuir texto">{% include 'components/icon.html' with name='text-decrease' %}</button>
+    <button class="accessibility-control" type="button" data-font-increase aria-label="Aumentar tamanho do texto" title="Aumentar texto">{% include 'components/icon.html' with name='text-increase' %}</button>
+    <button class="accessibility-control theme-control" type="button" data-theme-toggle aria-label="Ativar modo escuro" title="Modo escuro">{% include 'components/icon.html' with name='moon' class='theme-icon-moon' %}{% include 'components/icon.html' with name='sun' class='theme-icon-sun' %}</button>
+    <button class="accessibility-control" type="button" data-contrast-toggle aria-label="Ativar alto contraste" title="Alto contraste">{% include 'components/icon.html' with name='contrast' %}</button>
+  </aside>
 
   {% block app_header %}{% if user.is_authenticated %}
   <header class="app-header">
@@ -30,8 +38,6 @@
     </a>
     <div class="header-actions">
       <span class="demo-badge">Ambiente demonstrativo</span>
-      <button class="header-tool" type="button" data-font-toggle aria-label="Aumentar tamanho do texto" title="Aumentar texto">{% include 'components/icon.html' with name='text' %}<span>Texto</span></button>
-      <button class="header-tool contrast-tool" type="button" data-contrast-toggle aria-label="Ativar alto contraste" title="Alto contraste">{% include 'components/icon.html' with name='contrast' %}<span>Contraste</span></button>
       <a class="avatar" href="{% url 'accounts:profile' %}" aria-label="Abrir meu perfil">{{ user.first_name_display|first }}</a>
     </div>
   </header>
@@ -69,6 +75,6 @@
     </nav>
   </dialog>
   {% endif %}{% endblock %}
-  <script src="{% static 'js/amparo.js' %}?v=9" defer></script>
+  <script src="{% static 'js/amparo.js' %}?v=13" defer></script>
 </body>
 </html>

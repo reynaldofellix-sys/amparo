@@ -19,6 +19,11 @@ class AccessibleInterfaceSmokeTests(TestCase):
                 self.assertEqual(response.status_code, 200)
                 self.assertContains(response, "Ir para o conteúdo")
                 self.assertContains(response, 'lang="pt-BR"')
+                self.assertContains(response, 'class="accessibility-dock"')
+                self.assertContains(response, "data-font-decrease")
+                self.assertContains(response, "data-font-increase")
+                self.assertContains(response, "data-theme-toggle")
+                self.assertContains(response, "data-contrast-toggle")
 
     def test_authenticated_pages_render_mobile_navigation(self):
         self.client.force_login(self.user)
@@ -44,4 +49,4 @@ class AccessibleInterfaceSmokeTests(TestCase):
         self.client.force_login(self.user)
         response = self.client.get(reverse("dashboard"))
         self.assertContains(response, 'aria-current="page"')
-        self.assertContains(response, "logo-mark.svg")
+        self.assertContains(response, "logo-mark")

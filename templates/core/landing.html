@@ -10,8 +10,6 @@
     <span class="brand-copy"><strong>AMPARO</strong><small>Tecnologia para cuidar</small></span>
   </a>
   <div class="public-actions">
-    <button class="header-tool" type="button" data-font-toggle aria-label="Aumentar tamanho do texto">{% include 'components/icon.html' with name='text' %}<span>Texto</span></button>
-    <button class="header-tool contrast-tool" type="button" data-contrast-toggle aria-label="Ativar alto contraste">{% include 'components/icon.html' with name='contrast' %}<span>Contraste</span></button>
     {% if user.is_authenticated %}<a class="button button-ghost compact" href="{% url 'dashboard' %}">Minha conta</a>{% else %}<a class="button button-ghost compact" href="{% url 'accounts:login' %}">Entrar</a>{% endif %}
   </div>
 </header>

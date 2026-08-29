@@ -11,7 +11,9 @@ class CoreViewTests(TestCase):
         landing = self.client.get(reverse("landing"))
         self.assertContains(landing, "Seu dinheiro")
         self.assertContains(landing, 'rel="manifest"')
-        self.assertContains(landing, "data-font-toggle")
+        self.assertContains(landing, "data-font-decrease")
+        self.assertContains(landing, "data-font-increase")
+        self.assertContains(landing, "data-theme-toggle")
         self.assertContains(landing, "data-contrast-toggle")
         self.assertEqual(self.client.get(reverse("health-live")).json()["status"], "ok")
 
